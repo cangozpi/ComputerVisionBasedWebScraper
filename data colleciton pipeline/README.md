@@ -14,7 +14,7 @@ npm install
 * To run the script:
 
 ```bash
-node run pipeline
+npm run pipeline
 ```
 *or*
 ```bash
