@@ -4,12 +4,14 @@
   "description": "A data pipeline used to collect images from websites which are then to be used for traiing computer vision models.",
   "main": "app.js",
   "scripts": {
-    "pipeline":"node app.js",
+    "pipeline": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.23.0",
+    "jsdom": "^18.0.0",
     "puppeteer": "^10.4.0",
     "puppeteer-core": "^10.4.0"
   }
