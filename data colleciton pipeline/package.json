@@ -1,0 +1,16 @@
+{
+  "name": "data-colleciton-pipeline",
+  "version": "1.0.0",
+  "description": "A data pipeline used to collect images from websites which are then to be used for traiing computer vision models.",
+  "main": "app.js",
+  "scripts": {
+    "pipeline":"node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^10.4.0",
+    "puppeteer-core": "^10.4.0"
+  }
+}
