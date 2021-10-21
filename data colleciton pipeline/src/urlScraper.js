@@ -189,16 +189,6 @@ saveJson = () => {
 
 call_script = async() => {
     //call functions to web scrape the web pages below
-    // trendyol().then(()=>{
-    //     //webscrape url's from trendyol.com
-    //     console.log("2")
-    //     n11().then(()=>{
-    //         // Save the scraped url's into a json file
-    //         console.log("3")
-    //         saveJson();
-    //     });//webscrape url's from n11.com
-    // });
-
     console.log('+Starting to scrape trendyol.com ...')
     await trendyol();
     console.log('-Scraping trendyol.com finished. ' + trendyolUrls.length + ' URL\'s were successfully scraped.')

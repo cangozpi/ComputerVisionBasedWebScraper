@@ -14,7 +14,7 @@
     *or*
     
     ```bash
-    cd data\ collection\ pipeline/src
+    cd src
     node urlScraper.js
     ```
     Upon successfull completion of this script. The scraped URL's will be saved into **resources/webPageUrls.json** file in JSON format.
