@@ -20,21 +20,29 @@ takeScreenshot = async (url, dir) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url);
-  await page.screenshot({ path: dir });
+  await page.screenshot({ 
+      path: dir,
+      fullPage: true
+ });
   await browser.close();
 };
 
 
-const webPageUrls = require("./resources/webPageUrls.json").webPageUrls;
+//TODO: can change webPageUrls.length to something smaller such as 5 to execute code faster for 
+//development purposes. It should stay as webPageUrls.length on launch to iterate ~5k of al all the available url's
 
-(takeScreenshots = (webPageUrls, dir) => {
+const webPageUrls = require("./resources/webPageUrls.json").webPageUrls;
+takeScreenshots = (webPageUrls, dir, pageName) => {
     for(let i = 0; i < webPageUrls.length; i++){
-        current_path = path.join(dir, i.toString() + '.png');
+        current_path = path.join(dir, pageName + '-' + i.toString() + '.png');
         current_url = webPageUrls[i]
         takeScreenshot(current_url, current_path)  
         
         console.log('* Saving screenshot from webpage: ' + current_url + ".\n")  
     }
-})(webPageUrls, dir);
+}
+
+takeScreenshots(webPageUrls.trendyol, dir, 'trendyol');
+takeScreenshots(webPageUrls.n11, dir, 'n11');
 
 console.log('Script succesfully run.\nFind downloaded images at ' + dir + ".\n");
