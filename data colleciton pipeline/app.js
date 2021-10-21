@@ -33,7 +33,9 @@ takeScreenshot = async (url, dir) => {
 
 const webPageUrls = require("./resources/webPageUrls.json").webPageUrls;
 takeScreenshots = (webPageUrls, dir, pageName) => {
-    for(let i = 0; i < webPageUrls.length; i++){
+    //TODO: uncomment the line below and comment the line that is two lines below when you want to download all of the screenshots!
+    //for(let i = 0; i < webPageUrls.length; i++){
+    for(let i = 0; i < 5; i++){
         current_path = path.join(dir, pageName + '-' + i.toString() + '.png');
         current_url = webPageUrls[i]
         takeScreenshot(current_url, current_path)  

@@ -176,6 +176,13 @@ saveJson = () => {
         }
     }
 
+    // Create a folder to save the .json file
+    var dir = '../resources';
+
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir);
+    }
+
     // save the obj into the file
     dir = '../resources';
     obj_path = path.join(dir, 'webPageUrls.json');
