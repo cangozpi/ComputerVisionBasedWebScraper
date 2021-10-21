@@ -1,5 +1,7 @@
 # website Screenshots folder that has the downloaded images after running the script
 websiteScreenshots
+# url's scraped from websites for the data pipeline
+resources/webPageUrls.json
 # Logs
 logs
 *.log

@@ -4,7 +4,8 @@
   "description": "A data pipeline used to collect images from websites which are then to be used for traiing computer vision models.",
   "main": "app.js",
   "scripts": {
-    "pipeline": "node app.js",
+    "url_pipeline": "node src/urlScraper.js",
+    "screenshot_pipeline": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
