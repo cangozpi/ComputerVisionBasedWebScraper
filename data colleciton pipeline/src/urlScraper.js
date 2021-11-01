@@ -160,6 +160,70 @@ let n11 = async () => {
 
 
 
+// ==============================================================================
+scrapeReddit = async (baseSearchUrl, productHrefElementQuery) => {
+    try {
+        let searchURL = baseSearchUrl;
+        const response = await axios.get(searchURL);
+        const dom = new JSDOM(response.data);
+        const element = dom.window.document.querySelectorAll(productHrefElementQuery);
+        element.forEach(extractUrlReddit);
+        console.log(element[0].children[0].children[0].children[0].href);
+    
+    } catch (error) {
+      console.error("Something went wrong while scraping Reddit --> \n\t" + error);
+    }
+  }
+
+  extractUrlReddit = (div_element) => {
+    let baseURL = "https://www.reddit.com"
+    let relative_href = div_element.children[0].children[0].children[0].href;
+    let finalUrl = baseURL + relative_href;
+    redditUrls.push(finalUrl);
+    countReddit += 1;
+}
+let redditUrls = []
+countReddit = 0
+
+let reddit = async () => {
+    baseSearchUrl = "https://www.reddit.com/search/?q=gaming&type=link&sort=new";
+    productHrefElementQuery = "div._1Y6dfr4zLlrygH-FLmr8x-";
+    await scrapeReddit(baseSearchUrl, productHrefElementQuery);
+}
+
+// ==============================================================================
+scrapeDH = async (baseSearchUrl, productHrefElementQuery) => {
+    try {
+        let searchURL = baseSearchUrl;
+        const response = await axios.get(searchURL);
+        const dom = new JSDOM(response.data);
+        const element = dom.window.document.querySelectorAll(productHrefElementQuery);
+        element.forEach(extractUrlDH);
+        console.log(element[0].children[1].href);
+    
+    } catch (error) {
+      console.error("Something went wrong while scraping donanım haber --> \n\t" + error);
+    }
+  }
+
+  extractUrlDH = (div_element) => {
+    let baseURL = "https://forum.donanimhaber.com/"
+    let relative_href = div_element.children[1].href;
+    let finalUrl = baseURL + relative_href;
+    dhUrls.push(finalUrl);
+    countDH += 1;
+}
+let dhUrls = []
+countDH = 0
+
+let dh = async () => {
+    baseSearchUrl = "https://forum.donanimhaber.com/";
+    productHrefElementQuery = "div.js-popular-hot-topic-row";
+    await scrapeDH(baseSearchUrl, productHrefElementQuery);
+}
+// ==============================================================================
+
+
 
 
 
@@ -172,7 +236,10 @@ saveJson = () => {
     json_obj = {
         "webPageUrls": {
             "trendyol": trendyolUrls,
-            "n11": n11Urls
+            "n11": n11Urls,
+            "dh": dhUrls,
+            "reddit": redditUrls,
+
         }
     }
 
@@ -202,6 +269,12 @@ call_script = async() => {
     console.log('+Starting to scrape n11.com ...')
     await n11();
     console.log('-Scraping n11.com finished. ' + n11Urls.length + ' URL\'s were successfully scraped.')
+    console.log('+Starting to scrape donanımhaber.com ...')
+    await dh();
+    console.log('-Scraping donanımhaber.com finished. ' + dhUrls.length + ' URL\'s were successfully scraped.')
+    console.log('+Starting to scrape reddit.com ...')
+    await reddit();
+    console.log('-Scraping reddit.com finished. ' + redditUrls.length + ' URL\'s were successfully scraped.')
     console.log('* Starting to save scraped url\'s into "resources/WebPageUrls.json" file ...')
     saveJson();
     console.log("*Successfully saved.")
