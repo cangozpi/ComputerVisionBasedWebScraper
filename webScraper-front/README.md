@@ -29,3 +29,21 @@
     ```bash
         npm run start
     ```
+
+    ---
+
+    ## Folder Structure:
+    * Generate angular services, directives, components under their corresponding folders namely, *src/app/services*, *src/app/directives*, *src/app/components*
+    * The following can be used to generate
+    1) Angular services:
+    ```bash
+    ng generate service src/app/<serviceName>
+    ```
+    2) Angular services:
+    ```bash
+    ng generate directive src/app/<directiveName>
+    ```
+    3) Angular component:
+    ```bash
+    ng generate component src/app/<componentName>
+    ```
