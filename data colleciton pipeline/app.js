@@ -51,6 +51,7 @@ takeScreenshots(webPageUrls.trendyol, dir, 'trendyol');
 takeScreenshots(webPageUrls.n11, dir, 'n11');
 takeScreenshots(webPageUrls.reddit, dir, 'reddit');
 takeScreenshots(webPageUrls.dh, dir, 'donanimHaber');
+takeScreenshots(webPageUrls.sozcu, dir, 'sozcu');
 
 
 console.log('Script succesfully run.\nFind downloaded images at ' + dir + ".\n");
