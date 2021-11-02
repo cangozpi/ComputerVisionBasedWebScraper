@@ -152,10 +152,11 @@ let n11 = async () => {
     pg_limit= 6;
     await scrapeN11(baseSearchUrl, productHrefElementQuery, pg_limit);
 }
-
-
-
 // ==============================================================================
+
+
+
+// -- Call funcitons below to scrape reddit -->
 scrapeReddit = async (baseSearchUrl, productHrefElementQuery) => {
     try {
         let searchURL = baseSearchUrl;
@@ -185,8 +186,10 @@ let reddit = async () => {
     productHrefElementQuery = "div._1Y6dfr4zLlrygH-FLmr8x-";
     await scrapeReddit(baseSearchUrl, productHrefElementQuery);
 }
-
 // ==============================================================================
+
+
+// -- Call funcitons below to scrape donanimHaber -->
 scrapeDH = async (baseSearchUrl, productHrefElementQuery) => {
     try {
         let searchURL = baseSearchUrl;
@@ -221,6 +224,51 @@ let dh = async () => {
 
 
 
+//functions to WebScrape sozcu for news url's -->
+scrapeSozcu = async (searchURL, productHrefElementQuery) => {
+    try {
+        const response = await axios.get(searchURL);
+        const dom = new JSDOM(response.data);
+        const element = dom.window.document.querySelectorAll(productHrefElementQuery);
+        //loop through each product element and extract the url of corresponding product's page
+        element.forEach(extractUrlSozcu);
+    
+    } catch (error) {
+      console.error("Something went wrong while scraping Sozcu --> \n\t" + error);
+    }
+  }
+
+// Given parent div of a element with href to the product, extracts the href from the element
+extractUrlSozcu = (div_element) => {
+    let extracted_href = div_element.children[0].href;
+    sozcuUrls.push(extracted_href);
+    count += 1;
+}
+
+
+
+// -- Call funciton to scrape Trendyol for varios products below -->
+let sozcuUrls = []
+count = 0;
+
+let sozcu = async () => {
+    // Scrape gundem topcics from sozcu
+    const page_limit = 30 // number of pages to scrape for url's
+    for(let i=1; i < page_limit; i ++){
+        let baseSearchUrl = "https://www.sozcu.com.tr/kategori/gundem/" + i;//loop through pages btw [1, page_limit]
+        let productHrefElementQuery = "div.news-item";
+        await scrapeSozcu(baseSearchUrl, productHrefElementQuery);    
+    }
+}
+
+
+// ==============================================================================
+
+
+
+
+
+
 
 // ______________________________________________________________________________
 //  ___________________________________________________________________________
@@ -234,7 +282,7 @@ saveJson = () => {
             "n11": n11Urls,
             "dh": dhUrls,
             "reddit": redditUrls,
-
+            "sozcu": sozcuUrls
         }
     }
 
@@ -270,6 +318,9 @@ call_script = async() => {
     console.log('+Starting to scrape reddit.com ...')
     await reddit();
     console.log('-Scraping reddit.com finished. ' + redditUrls.length + ' URL\'s were successfully scraped.')
+    console.log('* Starting to save scraped url\'s into "resources/WebPageUrls.json" file ...')
+    await sozcu();
+    console.log('-Scraping sozcu.com.tr finished. ' + sozcuUrls.length + ' URL\'s were successfully scraped.')
     console.log('* Starting to save scraped url\'s into "resources/WebPageUrls.json" file ...')
     saveJson();
     console.log("*Successfully saved.")
