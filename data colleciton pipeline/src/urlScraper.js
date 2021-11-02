@@ -18,11 +18,6 @@ scrapeTrendyol = async (baseSearchUrl, productHrefElementQuery, pi_limit) => {
             const element = dom.window.document.querySelectorAll(productHrefElementQuery);
             //loop through each product element and extract the url of corresponding product's page
             element.forEach(extractUrlTrendyol);
-            // for(x of element){
-            //     extractUrlTrendyol(x);
-            //     console.log(i)
-            // }
-            //console.log(element[0].children[0].href);
         }
     
     } catch (error) {
@@ -116,7 +111,7 @@ extractUrlN11 = (div_element) => {
 }
 
 
-// -- Call funciton to scrape Trendyol for varios products below -->
+// -- Call funciton to scrape n11 for varios products below -->
 let n11Urls = []
 count = 0
 // Scrape telefon search from trendyol

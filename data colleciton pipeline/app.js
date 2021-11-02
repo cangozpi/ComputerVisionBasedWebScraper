@@ -13,12 +13,15 @@ if (!fs.existsSync(dir)){
 
 
 // Take a screen shot from a webpage
-// -- TODO: can't take a screenshot of the web page using puppeteer with the script below. Fix it.
+process.setMaxListeners(0);
 
 // Function that saves a screenshot of the page at url into the directory dir
 takeScreenshot = async (url, dir) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
+  // Configure the navigation timeout
+  await page.setDefaultNavigationTimeout(0);
+
   await page.goto(url);
   await page.screenshot({ 
       path: dir,
@@ -46,5 +49,8 @@ takeScreenshots = (webPageUrls, dir, pageName) => {
 
 takeScreenshots(webPageUrls.trendyol, dir, 'trendyol');
 takeScreenshots(webPageUrls.n11, dir, 'n11');
+takeScreenshots(webPageUrls.reddit, dir, 'reddit');
+takeScreenshots(webPageUrls.dh, dir, 'donanimHaber');
+
 
 console.log('Script succesfully run.\nFind downloaded images at ' + dir + ".\n");
