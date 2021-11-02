@@ -47,3 +47,4 @@
     ```bash
     ng generate component src/app/<componentName>
     ```
+    * **Note**: Please create modules for the components you generate and do not include that module in the *app.module.ts* file.
