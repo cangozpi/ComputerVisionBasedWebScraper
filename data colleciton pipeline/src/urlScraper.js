@@ -154,51 +154,28 @@ let n11 = async () => {
 }
 // ==============================================================================
 
-
-
-// -- Call funcitons below to scrape reddit -->
-scrapeReddit = async (baseSearchUrl, productHrefElementQuery) => {
-    try {
-        let searchURL = baseSearchUrl;
-        const response = await axios.get(searchURL);
-        const dom = new JSDOM(response.data);
-        const element = dom.window.document.querySelectorAll(productHrefElementQuery);
-        element.forEach(extractUrlReddit);
-        console.log(element[0].children[0].children[0].children[0].href);
+let eksiUrls = []
+let eksi = async () => {
     
-    } catch (error) {
-      console.error("Something went wrong while scraping Reddit --> \n\t" + error);
+    let baseURL = "https://www.eksisozluk.com/entry/"
+    for(let i = 0; i < 1000; i++){
+        t = i+129720000
+        finalUrl = baseURL+t
+        eksiUrls.push(finalUrl);
     }
-  }
-
-  extractUrlReddit = (div_element) => {
-    let baseURL = "https://www.reddit.com"
-    let relative_href = div_element.children[0].children[0].children[0].href;
-    let finalUrl = baseURL + relative_href;
-    redditUrls.push(finalUrl);
-    countReddit += 1;
 }
-let redditUrls = []
-countReddit = 0
 
-let reddit = async () => {
-    baseSearchUrl = "https://www.reddit.com/search/?q=gaming&type=link&sort=new";
-    productHrefElementQuery = "div._1Y6dfr4zLlrygH-FLmr8x-";
-    await scrapeReddit(baseSearchUrl, productHrefElementQuery);
-}
-// ==============================================================================
-
-
+// =============================================================================//
 // -- Call funcitons below to scrape donanimHaber -->
-scrapeDH = async (baseSearchUrl, productHrefElementQuery) => {
+scrapeDH = async (baseSearchUrl, productHrefElementQuery,pg_limit) => {
     try {
-        let searchURL = baseSearchUrl;
+        for(let i = 2; i <= pg_limit; i++){
+        let searchURL = baseSearchUrl+i;
         const response = await axios.get(searchURL);
         const dom = new JSDOM(response.data);
         const element = dom.window.document.querySelectorAll(productHrefElementQuery);
         element.forEach(extractUrlDH);
-        console.log(element[0].children[1].href);
-    
+        }
     } catch (error) {
       console.error("Something went wrong while scraping donanım haber --> \n\t" + error);
     }
@@ -206,7 +183,7 @@ scrapeDH = async (baseSearchUrl, productHrefElementQuery) => {
 
   extractUrlDH = (div_element) => {
     let baseURL = "https://forum.donanimhaber.com/"
-    let relative_href = div_element.children[1].href;
+    let relative_href = div_element.children[1].children[0].href;
     let finalUrl = baseURL + relative_href;
     dhUrls.push(finalUrl);
     countDH += 1;
@@ -215,9 +192,9 @@ let dhUrls = []
 countDH = 0
 
 let dh = async () => {
-    baseSearchUrl = "https://forum.donanimhaber.com/";
-    productHrefElementQuery = "div.js-popular-hot-topic-row";
-    await scrapeDH(baseSearchUrl, productHrefElementQuery);
+    baseSearchUrl = "https://forum.donanimhaber.com/apple-iphone-ipad--f462?sayfa=";
+    productHrefElementQuery = "div.kl-icerik-satir.yenikonu";
+    await scrapeDH(baseSearchUrl, productHrefElementQuery,15);
 }
 // ==============================================================================
 
@@ -281,7 +258,7 @@ saveJson = () => {
             "trendyol": trendyolUrls,
             "n11": n11Urls,
             "dh": dhUrls,
-            "reddit": redditUrls,
+            "eksisozluk": eksiUrls,
             "sozcu": sozcuUrls
         }
     }
@@ -315,9 +292,9 @@ call_script = async() => {
     console.log('+Starting to scrape donanımhaber.com ...')
     await dh();
     console.log('-Scraping donanımhaber.com finished. ' + dhUrls.length + ' URL\'s were successfully scraped.')
-    console.log('+Starting to scrape reddit.com ...')
-    await reddit();
-    console.log('-Scraping reddit.com finished. ' + redditUrls.length + ' URL\'s were successfully scraped.')
+    console.log('+Starting to scrape eksisozluk.com ...')
+    await eksi();
+    console.log('-Scraping eksisozluk.com finished. ' + eksiUrls.length + ' URL\'s were successfully scraped.')
     console.log('* Starting to save scraped url\'s into "resources/WebPageUrls.json" file ...')
     await sozcu();
     console.log('-Scraping sozcu.com.tr finished. ' + sozcuUrls.length + ' URL\'s were successfully scraped.')

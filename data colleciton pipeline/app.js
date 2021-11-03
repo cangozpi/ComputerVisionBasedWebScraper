@@ -23,6 +23,12 @@ takeScreenshot = async (url, dir) => {
   await page.setDefaultNavigationTimeout(0);
 
   await page.goto(url);
+  if (url.includes("eksi")){
+  const [button] = await page.$x("//button[contains(., 'tüm çerezleri kabul et')]");
+    if (button) {
+        await button.click();
+    }
+}
   await page.screenshot({ 
       path: dir,
       fullPage: true
@@ -37,7 +43,7 @@ takeScreenshot = async (url, dir) => {
 const webPageUrls = require("./resources/webPageUrls.json").webPageUrls;
 takeScreenshots = (webPageUrls, dir, pageName) => {
     //TODO: comment the line below and uncomment the line that is two lines below when you want to download only 5 screenshots instead off all ~5k !
-    for(let i = 0; i < webPageUrls.length; i++){
+    for(let i = 0; i < 5; i++){
     //for(let i = 0; i < 5; i++){
         current_path = path.join(dir, pageName + '-' + i.toString() + '.png');
         current_url = webPageUrls[i]
@@ -49,7 +55,7 @@ takeScreenshots = (webPageUrls, dir, pageName) => {
 
 takeScreenshots(webPageUrls.trendyol, dir, 'trendyol');
 takeScreenshots(webPageUrls.n11, dir, 'n11');
-takeScreenshots(webPageUrls.reddit, dir, 'reddit');
+takeScreenshots(webPageUrls.eksisozluk, dir, 'eksi');
 takeScreenshots(webPageUrls.dh, dir, 'donanimHaber');
 takeScreenshots(webPageUrls.sozcu, dir, 'sozcu');
 
