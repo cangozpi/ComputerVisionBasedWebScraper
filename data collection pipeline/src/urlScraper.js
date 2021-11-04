@@ -18,11 +18,6 @@ scrapeTrendyol = async (baseSearchUrl, productHrefElementQuery, pi_limit) => {
             const element = dom.window.document.querySelectorAll(productHrefElementQuery);
             //loop through each product element and extract the url of corresponding product's page
             element.forEach(extractUrlTrendyol);
-            // for(x of element){
-            //     extractUrlTrendyol(x);
-            //     console.log(i)
-            // }
-            //console.log(element[0].children[0].href);
         }
     
     } catch (error) {
@@ -116,7 +111,7 @@ extractUrlN11 = (div_element) => {
 }
 
 
-// -- Call funciton to scrape Trendyol for varios products below -->
+// -- Call funciton to scrape n11 for varios products below -->
 let n11Urls = []
 count = 0
 // Scrape telefon search from trendyol
@@ -157,6 +152,95 @@ let n11 = async () => {
     pg_limit= 6;
     await scrapeN11(baseSearchUrl, productHrefElementQuery, pg_limit);
 }
+// ==============================================================================
+
+let eksiUrls = []
+let eksi = async () => {
+    
+    let baseURL = "https://www.eksisozluk.com/entry/"
+    for(let i = 0; i < 1000; i++){
+        t = i+129720000
+        finalUrl = baseURL+t
+        eksiUrls.push(finalUrl);
+    }
+}
+
+// =============================================================================//
+// -- Call funcitons below to scrape donanimHaber -->
+scrapeDH = async (baseSearchUrl, productHrefElementQuery,pg_limit) => {
+    try {
+        for(let i = 2; i <= pg_limit; i++){
+        let searchURL = baseSearchUrl+i;
+        const response = await axios.get(searchURL);
+        const dom = new JSDOM(response.data);
+        const element = dom.window.document.querySelectorAll(productHrefElementQuery);
+        element.forEach(extractUrlDH);
+        }
+    } catch (error) {
+      console.error("Something went wrong while scraping donanım haber --> \n\t" + error);
+    }
+  }
+
+  extractUrlDH = (div_element) => {
+    let baseURL = "https://forum.donanimhaber.com/"
+    let relative_href = div_element.children[1].children[0].href;
+    let finalUrl = baseURL + relative_href;
+    dhUrls.push(finalUrl);
+    countDH += 1;
+}
+let dhUrls = []
+countDH = 0
+
+let dh = async () => {
+    baseSearchUrl = "https://forum.donanimhaber.com/apple-iphone-ipad--f462?sayfa=";
+    productHrefElementQuery = "div.kl-icerik-satir.yenikonu";
+    await scrapeDH(baseSearchUrl, productHrefElementQuery,15);
+}
+// ==============================================================================
+
+
+
+
+//functions to WebScrape sozcu for news url's -->
+scrapeSozcu = async (searchURL, productHrefElementQuery) => {
+    try {
+        const response = await axios.get(searchURL);
+        const dom = new JSDOM(response.data);
+        const element = dom.window.document.querySelectorAll(productHrefElementQuery);
+        //loop through each product element and extract the url of corresponding product's page
+        element.forEach(extractUrlSozcu);
+    
+    } catch (error) {
+      console.error("Something went wrong while scraping Sozcu --> \n\t" + error);
+    }
+  }
+
+// Given parent div of a element with href to the product, extracts the href from the element
+extractUrlSozcu = (div_element) => {
+    let extracted_href = div_element.children[0].href;
+    sozcuUrls.push(extracted_href);
+    count += 1;
+}
+
+
+
+// -- Call funciton to scrape Trendyol for varios products below -->
+let sozcuUrls = []
+count = 0;
+
+let sozcu = async () => {
+    // Scrape gundem topcics from sozcu
+    const page_limit = 30 // number of pages to scrape for url's
+    for(let i=1; i < page_limit; i ++){
+        let baseSearchUrl = "https://www.sozcu.com.tr/kategori/gundem/" + i;//loop through pages btw [1, page_limit]
+        let productHrefElementQuery = "div.news-item";
+        await scrapeSozcu(baseSearchUrl, productHrefElementQuery);    
+    }
+}
+
+
+// ==============================================================================
+
 
 
 
@@ -172,7 +256,10 @@ saveJson = () => {
     json_obj = {
         "webPageUrls": {
             "trendyol": trendyolUrls,
-            "n11": n11Urls
+            "n11": n11Urls,
+            "dh": dhUrls,
+            "eksisozluk": eksiUrls,
+            "sozcu": sozcuUrls
         }
     }
 
@@ -202,6 +289,15 @@ call_script = async() => {
     console.log('+Starting to scrape n11.com ...')
     await n11();
     console.log('-Scraping n11.com finished. ' + n11Urls.length + ' URL\'s were successfully scraped.')
+    console.log('+Starting to scrape donanımhaber.com ...')
+    await dh();
+    console.log('-Scraping donanımhaber.com finished. ' + dhUrls.length + ' URL\'s were successfully scraped.')
+    console.log('+Starting to scrape eksisozluk.com ...')
+    await eksi();
+    console.log('-Scraping eksisozluk.com finished. ' + eksiUrls.length + ' URL\'s were successfully scraped.')
+    console.log('* Starting to save scraped url\'s into "resources/WebPageUrls.json" file ...')
+    await sozcu();
+    console.log('-Scraping sozcu.com.tr finished. ' + sozcuUrls.length + ' URL\'s were successfully scraped.')
     console.log('* Starting to save scraped url\'s into "resources/WebPageUrls.json" file ...')
     saveJson();
     console.log("*Successfully saved.")

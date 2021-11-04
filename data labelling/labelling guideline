@@ -1,0 +1,37 @@
+LabelImg Download:
+  Go to https://github.com/tzutalin/labelImg 
+  For Windows machines go to Releases and download windows_v1.8.1.zip
+  For Linux and Mac follow the README file.
+
+LabelImg Setup:
+  Run the exe.
+  Select open dir as the directory of the screenshots.
+  Use change save dir button to chose where the labels are going to be saved.
+  Go to view and select auto-save for easier use
+  Use D to go to the next image and A to go to the previous image
+  Press W to draw a bounding box. 
+  Use your mouse to create a bounding box and give it a label.
+  It's recommended to set a label as default label from the left menu. Go through all the screenshots and label that class.
+    Then change the default label to another class and repeat.
+    
+Shopping Sites:
+  Follow the example labelled images.
+  Following class names are used as labels. 
+  Label other recommended products as product, do not label the price, title, seller etc.
+  Classes:
+    cookies : accept cookies popup if present 
+    title : name of the product
+    seller : name of the seller/store
+    ratings : star and number of reviews 
+    price : price of the product
+    review : singular review
+    reviews_button : button to open up reviews or load more reviews
+    details_button : button that opens up detailed info about the product,
+    search_box : search box/bar at the top of the page
+    question : if present, questions that users asked to the seller 
+    questions_button : button to open up or load more questions
+    product_info : detailed product info not the short version
+    photo : photo of the product
+    photo_button : other photos of the product that can be clicked
+    
+    
