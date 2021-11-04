@@ -41,23 +41,30 @@ takeScreenshot = async (url, dir) => {
 //development purposes. It should stay as webPageUrls.length on launch to iterate ~5k of al all the available url's
 
 const webPageUrls = require("./resources/webPageUrls.json").webPageUrls;
-takeScreenshots = (webPageUrls, dir, pageName) => {
+takeScreenshots = async (webPageUrls, dir, pageName) => {
     //TODO: comment the line below and uncomment the line that is two lines below when you want to download only 5 screenshots instead off all ~5k !
+    //for(let i = 0; i < webPageUrls.length; i++){
     for(let i = 0; i < 5; i++){
-    //for(let i = 0; i < 5; i++){
         current_path = path.join(dir, pageName + '-' + i.toString() + '.png');
         current_url = webPageUrls[i]
-        takeScreenshot(current_url, current_path)  
+        try{
+            await takeScreenshot(current_url, current_path); 
+        }catch(err){
+            console.log(err)
+        }
         
         console.log('* Saving screenshot from webpage: ' + current_url + ".\n")  
     }
 }
 
-takeScreenshots(webPageUrls.trendyol, dir, 'trendyol');
-takeScreenshots(webPageUrls.n11, dir, 'n11');
-takeScreenshots(webPageUrls.eksisozluk, dir, 'eksi');
-takeScreenshots(webPageUrls.dh, dir, 'donanimHaber');
-takeScreenshots(webPageUrls.sozcu, dir, 'sozcu');
+call_script = async() => {
+    await takeScreenshots(webPageUrls.trendyol, dir, 'trendyol');
+    await takeScreenshots(webPageUrls.n11, dir, 'n11');
+    await takeScreenshots(webPageUrls.eksisozluk, dir, 'eksi');
+    await takeScreenshots(webPageUrls.dh, dir, 'donanimHaber');
+    await takeScreenshots(webPageUrls.sozcu, dir, 'sozcu');
 
+    console.log('Script succesfully run.\nFind downloaded images at ' + dir + ".\n");
+}
 
-console.log('Script succesfully run.\nFind downloaded images at ' + dir + ".\n");
+call_script();
