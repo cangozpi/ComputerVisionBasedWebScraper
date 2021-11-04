@@ -20,7 +20,7 @@ takeScreenshot = async (url, dir) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   // Configure the navigation timeout
-  await page.setDefaultNavigationTimeout(0);
+  await page.setDefaultNavigationTimeout(5*60*1000);
 
   await page.goto(url);
   if (url.includes("eksi")){
@@ -31,6 +31,7 @@ takeScreenshot = async (url, dir) => {
 }
   await page.screenshot({ 
       path: dir,
+      type: 'jpeg',
       fullPage: true
  });
   await browser.close();
@@ -43,9 +44,9 @@ takeScreenshot = async (url, dir) => {
 const webPageUrls = require("./resources/webPageUrls.json").webPageUrls;
 takeScreenshots = async (webPageUrls, dir, pageName) => {
     //TODO: comment the line below and uncomment the line that is two lines below when you want to download only 5 screenshots instead off all ~5k !
-    //for(let i = 0; i < webPageUrls.length; i++){
-    for(let i = 0; i < 5; i++){
-        current_path = path.join(dir, pageName + '-' + i.toString() + '.png');
+    for(let i = 0; i < webPageUrls.length; i++){
+    //for(let i = 0; i < 5; i++){
+        current_path = path.join(dir, pageName + '-' + i.toString() + '.jpeg');
         current_url = webPageUrls[i]
         try{
             await takeScreenshot(current_url, current_path); 
@@ -58,10 +59,10 @@ takeScreenshots = async (webPageUrls, dir, pageName) => {
 }
 
 call_script = async() => {
-    await takeScreenshots(webPageUrls.trendyol, dir, 'trendyol');
-    await takeScreenshots(webPageUrls.n11, dir, 'n11');
-    await takeScreenshots(webPageUrls.eksisozluk, dir, 'eksi');
-    await takeScreenshots(webPageUrls.dh, dir, 'donanimHaber');
+    takeScreenshots(webPageUrls.trendyol, dir, 'trendyol');
+    takeScreenshots(webPageUrls.n11, dir, 'n11');
+    takeScreenshots(webPageUrls.eksisozluk, dir, 'eksi');
+    takeScreenshots(webPageUrls.dh, dir, 'donanimHaber');
     await takeScreenshots(webPageUrls.sozcu, dir, 'sozcu');
 
     console.log('Script succesfully run.\nFind downloaded images at ' + dir + ".\n");
