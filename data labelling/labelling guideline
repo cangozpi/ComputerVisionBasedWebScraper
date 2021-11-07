@@ -31,6 +31,7 @@ Shopping Sites:
     question : if present, questions that users asked to the seller 
     questions_button : button to open up or load more questions
     product_info : detailed product info not the short version
+    product_specs : specs sheet/table of the product
     photo : photo of the product
     photo_button : other photos of the product that can be clicked
     
