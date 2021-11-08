@@ -19,7 +19,6 @@ Shopping Sites:
   Following class names are used as labels. 
   Label other recommended products as product, do not label the price, title, seller etc.
   Classes:
-    cookies : accept cookies popup if present 
     title : name of the product
     seller : name of the seller/store
     ratings : star and number of reviews 
@@ -32,7 +31,14 @@ Shopping Sites:
     questions_button : button to open up or load more questions
     product_info : detailed product info not the short version
     product_specs : specs sheet/table of the product
-    photo : photo of the product
-    photo_button : other photos of the product that can be clicked
+    photo : other photos of the product
+    selected_photo : small icon of the selected photo
+    main_photo : big image of the product
+    cookie_popup : the entire cookie popup
+    cookie_accept : accept button of the cookie popup incase navigation is needed
+    cookie_close : close button of the cookie popup incase navigation is needed
+    options : different options for the product 
+    summary . product summary
+    product_desc : extended description of the product if available
     
     
