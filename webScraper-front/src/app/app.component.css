@@ -1,0 +1,15 @@
+.container{
+    padding-left: auto;
+    padding-right: auto;
+    text-align: center;
+    margin-top: 5vh;
+}
+
+.scrapeInput{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
