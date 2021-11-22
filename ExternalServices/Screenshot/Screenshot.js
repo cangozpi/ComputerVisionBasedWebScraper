@@ -38,8 +38,6 @@ takeScreenshot = async (url, dir) => {
 };
 
 
-//TODO: can change webPageUrls.length to something smaller such as 5 to execute code faster for 
-//development purposes. It should stay as webPageUrls.length on launch to iterate ~5k of al all the available url's
 take = async(url) =>{
         try{
             await takeScreenshot(url, path.join(dir, 'screenshot.jpeg')); 

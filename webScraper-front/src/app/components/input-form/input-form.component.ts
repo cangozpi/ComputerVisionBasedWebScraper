@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-input-form',
@@ -15,8 +16,18 @@ export class InputFormComponent implements OnInit {
   });
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.inputForm.value);
+    // POST request body
+    let scrapeRequestTemplate = {
+      websiteType: this.inputForm.value.websiteType,
+      targetURL: this.inputForm.value.targetURL,
+    }
+
+    //make POST request to server for /surveillanceUpload
+    let url = "http://localhost:8080/uploadSurveillance"; //TODO: change localhost 
+    this.http.post(url, scrapeRequestTemplate).toPromise().then((data:any) => {
+      console.log(data)
+    })
+
   }
 
 
@@ -24,7 +35,7 @@ export class InputFormComponent implements OnInit {
   value = '';
   //
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }

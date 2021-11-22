@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 /* Angular Material UI imports*/
 import { MaterialModule } from './material/material.module';
 import { InputFormComponent } from './components/input-form/input-form.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { InputFormComponent } from './components/input-form/input-form.component
     AppRoutingModule,
     NgbModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
     
   ],
   providers: [],
