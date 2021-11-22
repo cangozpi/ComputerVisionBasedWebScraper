@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InputFormComponent implements OnInit {
 
+  value = '';
+  
   constructor() { }
 
   ngOnInit(): void {
