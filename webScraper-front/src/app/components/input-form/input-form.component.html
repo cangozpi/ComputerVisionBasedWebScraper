@@ -1,25 +1,25 @@
-
-<mat-form-field>
-    <mat-label>Website type: <mat-icon>link</mat-icon></mat-label>
-    <mat-select matNativeControl required>
-      <mat-option value="shopping-site">
-        Shopping Site
-      </mat-option>
-      <mat-option value="forum-site">
-        Forum Site
-      </mat-option>
-      <mat-option value="news-site">
-        News Site
-      </mat-option>
-      <mat-option value="infer-site">
-        Infer the type
-      </mat-option>
-    </mat-select>
+<div class="main">
+    
+    <mat-form-field class="input-1">
+        <mat-label>Website type: <mat-icon>link</mat-icon></mat-label>
+        <mat-select matNativeControl required>
+        <mat-option value="shopping-site">
+            Shopping Site
+        </mat-option>
+        <mat-option value="forum-site">
+            Forum Site
+        </mat-option>
+        <mat-option value="news-site">
+            News Site
+        </mat-option>
+        <mat-option value="infer-site">
+            Infer the type
+        </mat-option>
+        </mat-select>
+    </mat-form-field>
   
-  </mat-form-field>
   
-  
-  <mat-form-field class="example-form-field">
+  <mat-form-field class="input-2">
     <mat-label>Target URL:</mat-label> 
     <input matInput type="url" [(ngModel)]="value" required>
     <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
@@ -27,4 +27,5 @@
     </button>
   </mat-form-field>
   
-  <button mat-raised-button color="primary">Scrape <mat-icon>play_arrow</mat-icon></button>
+  <button class="btn-1" mat-raised-button color="primary">Scrape <mat-icon>play_arrow</mat-icon></button>
+</div>

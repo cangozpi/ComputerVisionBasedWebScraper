@@ -1,0 +1,23 @@
+/* 
+.main{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 0.05rem solid black;
+    border-radius: 2%;
+    padding: 0.5vw 0.7vh;
+}
+
+.input-1{
+    width: 25%;
+}
+
+.input-2{
+    width: 47%;
+}
+
+.btn-1{
+    width: 15%;
+}
+
+*/
