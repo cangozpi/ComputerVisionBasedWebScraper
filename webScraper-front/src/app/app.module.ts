@@ -10,11 +10,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { InputFormComponent } from './components/input-form/input-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AccordionExplanationComponent } from './components/accordion-explanation/accordion-explanation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InputFormComponent
+    InputFormComponent,
+    AccordionExplanationComponent
   ],
   imports: [
     BrowserModule,
