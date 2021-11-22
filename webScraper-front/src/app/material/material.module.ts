@@ -7,6 +7,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 
 
 /* For form*/
@@ -24,7 +25,8 @@ const MaterialComponents = [
   MatSelectModule,
   MatInputModule,
   FormsModule,
-  MatIconModule 
+  MatIconModule,
+  MatButtonModule
 ];
 
 

@@ -8,10 +8,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /* Angular Material UI imports*/
 import { MaterialModule } from './material/material.module';
+import { InputFormComponent } from './components/input-form/input-form.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    InputFormComponent
   ],
   imports: [
     BrowserModule,
