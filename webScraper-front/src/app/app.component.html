@@ -1,21 +1,35 @@
 <div class="container">
   <h1>WEB SCRAPER</h1>
   <p>Application is currently under development...</p>
-
-  <form class="row g-3 scrapeInput">
-    <div ngbDropdown>
-      <button class="btn btn-outline-primary" id="dropdownConfig"  ngbDropdownToggle>Toggle</button>
-      <div ngbDropdownMenu aria-labelledby="dropdownConfig">
-        <button ngbDropdownItem>Shopping</button>
-        <button ngbDropdownItem>News</button>
-        <button ngbDropdownItem>Forum</button>
-      </div>
-    </div>
-    <div class="col-auto">
-      <input type="password" class="form-control" id="inputPassword2" placeholder="Please enter desired URL.">
-    </div>
-    <div class="col-auto">
-      <button type="submit" class="btn btn-primary mb-3">Scrape</button>
-    </div>
-  </form>
 </div>
+
+
+<mat-form-field >
+  <mat-label>Website type:</mat-label>
+  <mat-select matNativeControl required>
+    <mat-option value="shopping-site">
+      Shopping Site
+    </mat-option>
+    <mat-option value="forum-site">
+      Forum Site
+    </mat-option>
+    <mat-option value="news-site">
+      News Site
+    </mat-option>
+    <mat-option value="infer-site">
+      Infer the type
+    </mat-option>
+  </mat-select>
+
+</mat-form-field>
+
+
+<mat-form-field class="example-form-field">
+  <mat-label>Target URL:</mat-label> 
+  <input matInput type="url" [(ngModel)]="value">
+  <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+<mat-slider min="1" max="100" step="1" value="50"></mat-slider>
