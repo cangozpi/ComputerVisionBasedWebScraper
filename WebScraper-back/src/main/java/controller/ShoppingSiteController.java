@@ -2,16 +2,14 @@ package controller;
 
 
 import Service.ShoppingSiteService;
+import model.ScrapeRequestModel;
 import model.ShoppingSiteModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("scrape/shoppingSite")
+@RequestMapping("/scrape/shoppingSite")
 public class ShoppingSiteController {
 
     @Autowired
@@ -19,9 +17,10 @@ public class ShoppingSiteController {
 
 
     @PostMapping("/scrapeShopping")
-    public ShoppingSiteModel scrapeShopping(@RequestBody String url){
+    @ResponseBody
+    public ShoppingSiteModel scrapeShopping(@RequestBody ScrapeRequestModel scrapeRequestModel){
 
-        return shoppingSiteService.scrapeShopping(url);
+        return shoppingSiteService.scrapeShopping(scrapeRequestModel.getWebsiteType(), scrapeRequestModel.getTargetURL());
     }
 
 }

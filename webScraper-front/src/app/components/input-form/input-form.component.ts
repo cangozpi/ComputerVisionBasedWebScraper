@@ -23,7 +23,7 @@ export class InputFormComponent implements OnInit {
     }
 
     //make POST request to server for /surveillanceUpload
-    let url = "http://localhost:8080/uploadSurveillance"; //TODO: change localhost 
+    let url = "http://localhost:8080/scrape/shoppingSite/scrapeShopping"; //TODO: change localhost 
     this.http.post(url, scrapeRequestTemplate).toPromise().then((data:any) => {
       console.log(data)
     })

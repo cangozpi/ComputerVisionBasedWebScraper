@@ -16,7 +16,7 @@ import org.json.simple.parser.JSONParser;
 public class ShoppingSiteService {
 
 
-    public ShoppingSiteModel scrapeShopping(String url) {
+    public ShoppingSiteModel scrapeShopping(String websiteType, String url) {
 
         String data = "";
         JSONObject shoppingSiteJSON = new JSONObject();
