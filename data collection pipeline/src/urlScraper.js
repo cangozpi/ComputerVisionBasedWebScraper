@@ -241,12 +241,80 @@ let sozcu = async () => {
 
 // ==============================================================================
 
+//functions to WebScrape aydınlık for news url's -->
+scrapeAydınlık = async (searchURL, productHrefElementQuery) => {
+    try {
+        const response = await axios.get(searchURL);
+        const dom = new JSDOM(response.data);
+        const element = dom.window.document.querySelectorAll(productHrefElementQuery);
+        //loop through each product element and extract the url of corresponding product's page
+        element.forEach(extractUrlAydınlık);
+
+    } catch (error) {
+      console.error("Something went wrong while scraping Aydınlık --> \n\t" + error);
+    }
+  }
+
+// Given parent div of a element with href to the product, extracts the href from the element
+extractUrlAydınlık = (div_element) => {
+    let extracted_href = div_element.children[0].href;
+    aydınlıkUrls.push(extracted_href);
+    count += 1;
+}
 
 
 
+// -- Call funciton to scrape Trendyol for varios products below -->
+let aydınlıkUrls = []
+count = 0;
+
+let aydınlık = async () => {
+    // Scrape gundem topcics from aydınlık
+    const page_limit = 30 // number of pages to scrape for url's
+    for(let i=1; i < page_limit; i ++){
+        let baseSearchUrl = "https://www.aydinlik.com.tr/tum-haberler" + i;//loop through pages btw [1, page_limit]
+        let productHrefElementQuery = "mat-list-item.mat-list-item mat-multi-line ng-star-inserted";
+        await scrapeAydınlık(baseSearchUrl, productHrefElementQuery);
+    }
+}
+// ==============================================================================
+
+//functions to WebScrape Korkusuz for news url's -->
+scrapeKorkusuz = async (searchURL, productHrefElementQuery) => {
+    try {
+        const response = await axios.get(searchURL);
+        const dom = new JSDOM(response.data);
+        const element = dom.window.document.querySelectorAll(productHrefElementQuery);
+        //loop through each product element and extract the url of corresponding product's page
+        element.forEach(extractUrlKorkusuz);
+
+    } catch (error) {
+      console.error("Something went wrong while scraping Korkusuz --> \n\t" + error);
+    }
+  }
+
+// Given parent div of a element with href to the product, extracts the href from the element
+extractUrlKorkusuz = (div_element) => {
+    let extracted_href = div_element.children[0].href;
+    korkusuzUrls.push(extracted_href);
+    count += 1;
+}
 
 
 
+// -- Call funciton to scrape Trendyol for varios products below -->
+let korkusuzUrls = []
+count = 0;
+
+let korkusuz = async () => {
+    // Scrape gundem topcics from korkusuz
+    const page_limit = 30 // number of pages to scrape for url's
+    for(let i=1; i < page_limit; i ++){
+        let baseSearchUrl = "https://www.korkusuz.com.tr/gundem/" + i;//loop through pages btw [1, page_limit]
+        let productHrefElementQuery = "div.post";
+        await scrapeKorkusuz(baseSearchUrl, productHrefElementQuery);
+    }
+}
 // ______________________________________________________________________________
 //  ___________________________________________________________________________
 
@@ -260,6 +328,8 @@ saveJson = () => {
             "dh": dhUrls,
             "eksisozluk": eksiUrls,
             "sozcu": sozcuUrls
+            "korkusuz": korkusuzUrls
+            "aydınlık": aydınlıkUrls
         }
     }
 
@@ -299,6 +369,10 @@ call_script = async() => {
     await sozcu();
     console.log('-Scraping sozcu.com.tr finished. ' + sozcuUrls.length + ' URL\'s were successfully scraped.')
     console.log('* Starting to save scraped url\'s into "resources/WebPageUrls.json" file ...')
+     console.log('-Scraping https://www.aydinlik.com.tr finished. ' + aydınlıkUrls.length + ' URL\'s were successfully scraped.')
+     console.log('* Starting to save scraped url\'s into "resources/WebPageUrls.json" file ...')
+     console.log('-Scraping https://www.korkusuz.com.tr/ finished. ' + korkusuzUrls.length + ' URL\'s were successfully scraped.')
+     console.log('* Starting to save scraped url\'s into "resources/WebPageUrls.json" file ...')
     saveJson();
     console.log("*Successfully saved.")
 
