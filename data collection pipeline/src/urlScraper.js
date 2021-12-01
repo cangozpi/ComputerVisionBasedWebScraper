@@ -327,8 +327,8 @@ saveJson = () => {
             "n11": n11Urls,
             "dh": dhUrls,
             "eksisozluk": eksiUrls,
-            "sozcu": sozcuUrls
-            "korkusuz": korkusuzUrls
+            "sozcu": sozcuUrls,
+            "korkusuz": korkusuzUrls,
             "aydınlık": aydınlıkUrls
         }
     }
