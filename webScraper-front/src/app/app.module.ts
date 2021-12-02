@@ -12,13 +12,15 @@ import { InputFormComponent } from './components/input-form/input-form.component
 import { HttpClientModule } from '@angular/common/http';
 import { AccordionExplanationComponent } from './components/accordion-explanation/accordion-explanation.component';
 import { ShoppingItemComponent } from './components/shopping-item/shopping-item.component';
+import { ItemCommentsComponent } from './components/shopping-item/item-comments/item-comments.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InputFormComponent,
     AccordionExplanationComponent,
-    ShoppingItemComponent
+    ShoppingItemComponent,
+    ItemCommentsComponent
   ],
   imports: [
     BrowserModule,
