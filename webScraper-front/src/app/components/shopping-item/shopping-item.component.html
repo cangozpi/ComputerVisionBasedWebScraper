@@ -27,7 +27,11 @@
     <ng-container matColumnDef="product-comments">
         <th mat-header-cell *matHeaderCellDef> Comments </th>
         <td mat-cell *matCellDef="let element"> 
-            <button mat-button (click)="openDialog()">Open dialog</button>    
+            <button mat-button (click)="openDialog()">
+                Show Comments 
+                <mat-icon aria-hidden="false" aria-label="comments">question_answer</mat-icon>
+                <mat-icon aria-hidden="false" aria-label="comments_modal">zoom_in</mat-icon>
+            </button>    
         </td>
       </ng-container>
 
