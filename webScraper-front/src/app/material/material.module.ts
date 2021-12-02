@@ -8,6 +8,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 /* For form*/
@@ -27,7 +29,9 @@ const MaterialComponents = [
   MatInputModule,
   FormsModule,
   MatIconModule,
-  MatButtonModule
+  MatButtonModule,
+  MatTableModule,
+  MatDialogModule
 ];
 
 
