@@ -2,7 +2,8 @@ const sharp = require('sharp');
 var fs = require('fs')
 
 // original image
-let imagePath = '../Screenshot/screenshot.jpeg';
+let imagePath = './DataScraper/screenshot.jpeg';
+let savedImagesPath = './DataScraper/images'
 //Labels
 let LABELS = ['title', 'seller', 'ratings', 'price', 'review', 'reviews_button', 'details_button', 'search_box', 'question', 'questions_button','product_info', 'product_specs', 'photo', 'selected_photo', 'main_photo', 'cookie_popup', 'cookie_accept', 'cookie_close', 'options', 'summary','product_desc']
 
@@ -43,12 +44,12 @@ async function iterateDetections(imagePath, arr) {
         let scaleHeight = temporary[4]
         let confidenceScore = temporary[5]
         
-        cropImage(image, imageHeight, imageWidth,  `${LABELS[classLabel]} - ${classLabelList[classLabel]}.jpeg`, distanceLeft- scaleWidth/2, distanceTop - scaleHeight/2, scaleWidth, scaleHeight);
+        cropImage(image, imageHeight, imageWidth,  `${savedImagesPath}/${LABELS[classLabel]} - ${classLabelList[classLabel]}.jpeg`, distanceLeft- scaleWidth/2, distanceTop - scaleHeight/2, scaleWidth, scaleHeight);
         classLabelList[classLabel] += 1
     }
 };
 
-let filename = '\\Users\\berku\\Desktop\\ComputerVisionBasedWebScraper\\ExternalServices\\AI\\trendyol-194.txt'
+let filename = './AI/yolov5/runs/detect/exp/labels/screenshot.txt'
 let arr = []
  fs.readFile(filename, 'utf8', function(err, data) {
     if (err) throw err;
@@ -57,7 +58,8 @@ let arr = []
     console.log(arr)
     iterateDetections(imagePath,arr);
   });
-  
+
+
   
 
  
