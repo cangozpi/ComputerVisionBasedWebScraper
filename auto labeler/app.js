@@ -43,7 +43,9 @@ const webPageUrls = require("../data collection pipeline/resources/webPageUrls.j
 
 // extract the scraped url's for trendyol
 trendyolUrls = webPageUrls.trendyol;
-
+const shopping_extracted_elements_labels = ["title", "seller", "ratings", "price", "review", "reviews_button", "details_button", "search_box", 
+"question", "questions_button", "product_info", "product_specs", "photo", "selected_photo", "main_photo", "options",
+"summary", "product_desc"]
 
 const puppeteer = require('puppeteer');
 // open the corresponding web pages
@@ -59,9 +61,7 @@ for(let k=0; k < 10; k++){
         await page.goto(currentUrl);
         //extract the coordinates of the DOM elements of interest from the given url
         extracted_elements_array = []
-        extracted_elements_labels = ["title", "seller", "ratings", "price", "review", "reviews_button", "details_button", "search_box", 
-        "question", "questions_button", "product_info", "product_specs", "photo", "selected_photo", "main_photo", "options",
-        "summary", "product_desc"]
+        extracted_elements_labels = shopping_extracted_elements_labels;
         //title : name of the product
         title_element = await page.$(".pr-new-br span")
         if(title_element != null){
@@ -268,6 +268,8 @@ for(let k=0; k < 10; k++){
     
         const data_dir = './data'
         const train_dir = './data/train';
+        const train_img_dir = './data/train/img';
+        const train_label_dir = './data/train/label';
     
         if (!fs.existsSync(data_dir)){
             fs.mkdirSync(data_dir);
@@ -277,32 +279,32 @@ for(let k=0; k < 10; k++){
         if (!fs.existsSync(train_dir)){
             fs.mkdirSync(train_dir);
         }
+
+        if (!fs.existsSync(train_img_dir)){
+            fs.mkdirSync(train_img_dir);
+        }
+
+        if (!fs.existsSync(train_label_dir)){
+            fs.mkdirSync(train_label_dir);
+        }
     
-        // save into the file
-        obj_path = path.join(train_dir, `trendyol label${k}`);
+        // save *label.txt into data_dir
+        const uuid = `trendyol label${k}`;
+        obj_path = path.join(train_label_dir, uuid + '.txt');
     
         fs.writeFile (obj_path, label_str, (err) => {
             if (err) throw err;
         });
     
-    
-    
-           /*
-        e = await (await page.$(".base-product-image img")).boundingBox()
-        console.log(e)
-        const divCount = await page.$eval('.base-product-image img', (product_image) => {
-            return product_image.width}
-            );
-        console.log(divCount) 
-        */
-    
-    /*
-          await page.screenshot({ 
-          path: dir,
-          type: 'jpeg',
-          fullPage: true
-     });
-      */
+        //save screenshot of the current page and save with corresponding name
+        img_path = path.join(train_img_dir, uuid + '.jpeg');
+
+        await page.screenshot({ 
+            path: img_path,
+            type: 'jpeg',
+            fullPage: true
+       });
+
         await browser.close();
       })();
 }
@@ -310,27 +312,31 @@ for(let k=0; k < 10; k++){
 
 
 
+//create data.yaml file required for yolov5
+//create data.yaml string 
+const train_img_dir = './data/train/img';
+let shopping_labels = "[";
+for(let i=0; i < shopping_extracted_elements_labels.length; i++){
+    shopping_labels += `'${shopping_extracted_elements_labels[i]}'`
+    if(i != shopping_extracted_elements_labels.length-1){
+        shopping_labels += ", ";
+    }else{
+        shopping_labels += "]";
+    }
+}
+yaml_str = `train: ${train_img_dir}\nval: ${train_img_dir}\nnc: ${shopping_extracted_elements_labels.length}\nnames: ${shopping_labels}`
+//create folder to save to
+const fs = require('fs');
+const path = require('path');
 
+const data_dir = './data'
 
-/*
-const puppeteer = require('puppeteer');
+if (!fs.existsSync(data_dir)){
+    fs.mkdirSync(data_dir);
+}
 
-// Take a screen shot from a webpage
-process.setMaxListeners(0);
-
-// Function that saves a screenshot of the page at url into the directory dir
-takeScreenshot = async (url, dir) => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  // Configure the navigation timeout
-  await page.setDefaultNavigationTimeout(5*60*1000);
-  await page.goto(url);
-  await page.screenshot({ 
-    path: dir,
-    type: 'jpeg',
-    fullPage: true
-    });
-await browser.close();
-};
-*/
-
+obj_path = path.join(data_dir, 'data.yaml');
+    
+fs.writeFile (obj_path, yaml_str, (err) => {
+    if (err) throw err;
+});
