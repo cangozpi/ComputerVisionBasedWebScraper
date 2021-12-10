@@ -1,5 +1,3 @@
-// For now run this short script to see if your installations are compatible.
-
 var fs = require('fs');
 const puppeteer = require('puppeteer');
 const path = require('path');
