@@ -227,8 +227,7 @@ for(let k=0; k < 10; k++){
         body_element = await (await page.$(".gallery-container")).boundingBox()
         const page_height = body_element.height;
         const page_width = body_element.width
-console.log(extracted_elements_labels_ordered.length)
-console.log(extracted_elements_array.length)
+
 
         // work with extracted information
         str_row_infos = [] //each entry corresponds to an information that forms a row of the label.txt file
@@ -245,8 +244,8 @@ console.log(extracted_elements_array.length)
                     info_template.class_id = current_label
                     info_template.center_x = cur_el.x/page_width //normalize the x value
                     info_template.center_y = cur_el.y/page_height //normalize the y value
-                    info_template.width = cur_el.width
-                    info_template.height = cur_el.height
+                    info_template.width = cur_el.width/page_width //normalize
+                    info_template.height = cur_el.height/page_height //normalize
                     
                     var info_template_copy = JSON.parse(JSON.stringify(info_template)); //clone the object
                     
@@ -256,8 +255,8 @@ console.log(extracted_elements_array.length)
                 info_template.class_id = current_label
                 info_template.center_x = current_element.x/page_width //normalize the x value
                 info_template.center_y = current_element.y/page_height //normalize the y value
-                info_template.width = current_element.width
-                info_template.height = current_element.height
+                info_template.width = current_element.width/page_width //normalize
+                info_template.height = current_element.height/page_height //normalize
     
                 var info_template_copy = JSON.parse(JSON.stringify(info_template)); //clone the object
                 
