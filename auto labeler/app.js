@@ -61,12 +61,14 @@ for(let k=0; k < 10; k++){
         await page.goto(currentUrl);
         //extract the coordinates of the DOM elements of interest from the given url
         extracted_elements_array = []
+        extracted_elements_labels_ordered = []
         extracted_elements_labels = shopping_extracted_elements_labels;
         //title : name of the product
         title_element = await page.$(".pr-new-br span")
         if(title_element != null){
             title_element = await title_element.boundingBox()
             extracted_elements_array.push(title_element)
+            extracted_elements_labels_ordered.push(0)
             //console.log(title_element)
         }
         //seller : name of the seller/store
@@ -74,6 +76,7 @@ for(let k=0; k < 10; k++){
         if(seller_element != null){
             seller_element = await seller_element.boundingBox()
             extracted_elements_array.push(seller_element)
+            extracted_elements_labels_ordered.push(1)
             //console.log(seller_element)
         }
         //ratings : star and number of reviews
@@ -81,6 +84,7 @@ for(let k=0; k < 10; k++){
         if(ratings_element != null){
             ratings_element = await ratings_element.boundingBox()
             extracted_elements_array.push(ratings_element)
+            extracted_elements_labels_ordered.push(2)
             //console.log(ratings_element)
         }
         //price : price of the product
@@ -88,6 +92,7 @@ for(let k=0; k < 10; k++){
         if(price_element != null){
             price_element = await price_element.boundingBox()
             extracted_elements_array.push(price_element)
+            extracted_elements_labels_ordered.push(3)
             //console.log(price_element)
         }
         //review : singular review
@@ -98,12 +103,14 @@ for(let k=0; k < 10; k++){
         }
         if(review_elements.length > 0){
             extracted_elements_array.push(review_elements)
+            extracted_elements_labels_ordered.push(4)
         }
         //reviews_button : button to open up reviews or load more reviews
         reviews_button_element = await page.$(".pr-rnr-mr-btn.gnr-cnt-br")
         if(reviews_button_element != null){
             reviews_button_element = await reviews_button_element.boundingBox()
             extracted_elements_array.push(reviews_button_element)
+            extracted_elements_labels_ordered.push(5)
             //console.log(reviews_button_element)
         }
         //details_button : button that opens up detailed info about the product
@@ -111,6 +118,7 @@ for(let k=0; k < 10; k++){
         if(details_button_element != null){
             details_button_element = await details_button_element.boundingBox()
             extracted_elements_array.push(details_button_element)
+            extracted_elements_labels_ordered.push(6)
             //console.log(details_button_element)
         }
         //search_box : search box/bar at the top of the page
@@ -118,6 +126,7 @@ for(let k=0; k < 10; k++){
         if(search_box_element != null){
             search_box_element = await search_box_element.boundingBox()
             extracted_elements_array.push(search_box_element)
+            extracted_elements_labels_ordered.push(7)
             //console.log(search_box_element)
         }
         //question : if present, questions that users asked to the seller
@@ -128,12 +137,14 @@ for(let k=0; k < 10; k++){
         }
         if(question_elements.length > 0){
             extracted_elements_array.push(question_elements)
+            extracted_elements_labels_ordered.push(8)
         }
         //questions_button : button to open up or load more questions
         questions_button_element = await page.$("a.more-questions")
         if(questions_button_element != null){
             questions_button_element = await questions_button_element.boundingBox()
             extracted_elements_array.push(questions_button_element)
+            extracted_elements_labels_ordered.push(9)
             //console.log(questions_button_element)
         }
         //product_info : detailed product info not the short version
@@ -141,6 +152,7 @@ for(let k=0; k < 10; k++){
         if(product_info_element != null){
             product_info_element = await product_info_element.boundingBox()
             extracted_elements_array.push(product_info_element)
+            extracted_elements_labels_ordered.push(10)
             //console.log(product_info_element)
         }
         //product_specs : specs sheet/table of the product
@@ -148,6 +160,7 @@ for(let k=0; k < 10; k++){
         if(product_specs_element != null){
             product_specs_element = await product_specs_element.boundingBox()
             extracted_elements_array.push(product_specs_element)
+            extracted_elements_labels_ordered.push(11)
             //console.log(product_specs_element)
         }
         //photo : other photos of the product
@@ -155,6 +168,7 @@ for(let k=0; k < 10; k++){
         if(photo_element != null){
             photo_element = await photo_element.boundingBox()
             extracted_elements_array.push(photo_element)
+            extracted_elements_labels_ordered.push(12)
             //console.log(photo_element)
         }
         //selected_photo : small icon of the selected photo
@@ -162,6 +176,7 @@ for(let k=0; k < 10; k++){
         if(selected_photo_element != null){
             selected_photo_element = await selected_photo_element.boundingBox()
             extracted_elements_array.push(selected_photo_element)
+            extracted_elements_labels_ordered.push(13)
             //console.log(selected_photo_element)
         }
         //main_photo : big image of the product
@@ -169,6 +184,7 @@ for(let k=0; k < 10; k++){
         if(main_photo_element != null){
             main_photo_element = await main_photo_element.boundingBox()
             extracted_elements_array.push(main_photo_element)
+            extracted_elements_labels_ordered.push(14)
             //console.log(main_photo_element)
         }
         //options : different options for the product 
@@ -176,6 +192,7 @@ for(let k=0; k < 10; k++){
         if(options_element != null){
             options_element = await options_element.boundingBox()
             extracted_elements_array.push(options_element)
+            extracted_elements_labels_ordered.push(15)
             //console.log(options_element)
         }
         //summary . product summary
@@ -183,6 +200,7 @@ for(let k=0; k < 10; k++){
         if(summary_element != null){
             summary_element = await summary_element.boundingBox()
             extracted_elements_array.push(summary_element)
+            extracted_elements_labels_ordered.push(16)
             //console.log(summary_element)
         }
         //product_desc : extended description of the product if available
@@ -190,13 +208,14 @@ for(let k=0; k < 10; k++){
         if(product_desc_element != null){
             product_desc_element = await product_desc_element.boundingBox()
             extracted_elements_array.push(product_desc_element)
+            extracted_elements_labels_ordered.push(17)
             //console.log(product_desc_element)
         }
         
 
     
         // make a map of element-(coordinate/info) mappings
-        info_template = { //boiler plate code
+        info_template = { //boilerplate code
             class_id: null,
             center_x: null,
             center_y: null,
@@ -208,12 +227,12 @@ for(let k=0; k < 10; k++){
         body_element = await (await page.$(".gallery-container")).boundingBox()
         const page_height = body_element.height;
         const page_width = body_element.width
-    
-        
+
+
         // work with extracted information
         str_row_infos = [] //each entry corresponds to an information that forms a row of the label.txt file
         for(let i=0; i < extracted_elements_array.length; i++){
-            current_label = extracted_elements_labels[i]
+            current_label = extracted_elements_labels_ordered[i]
             current_element = extracted_elements_array[i]
             
             // check if current element is a list of elements or not
@@ -222,22 +241,22 @@ for(let k=0; k < 10; k++){
                 for(let j=0; j<current_element.length; j++){
                     cur_el = current_element[j]
     
-                    info_template.class_id = i
+                    info_template.class_id = current_label
                     info_template.center_x = cur_el.x/page_width //normalize the x value
                     info_template.center_y = cur_el.y/page_height //normalize the y value
-                    info_template.width = cur_el.width
-                    info_template.height = cur_el.height
+                    info_template.width = cur_el.width/page_width //normalize
+                    info_template.height = cur_el.height/page_height //normalize
                     
                     var info_template_copy = JSON.parse(JSON.stringify(info_template)); //clone the object
                     
                     str_row_infos.push(info_template_copy)
                 }
             }else{ //single element
-                info_template.class_id = i
+                info_template.class_id = current_label
                 info_template.center_x = current_element.x/page_width //normalize the x value
                 info_template.center_y = current_element.y/page_height //normalize the y value
-                info_template.width = current_element.width
-                info_template.height = current_element.height
+                info_template.width = current_element.width/page_width //normalize
+                info_template.height = current_element.height/page_height //normalize
     
                 var info_template_copy = JSON.parse(JSON.stringify(info_template)); //clone the object
                 
@@ -245,7 +264,7 @@ for(let k=0; k < 10; k++){
             }
             
         }
-    
+        
         //generate text for the current page's images *label.txt file
         label_str = "";
         for(let i=0; i<str_row_infos.length; i++){

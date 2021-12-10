@@ -369,10 +369,10 @@ call_script = async() => {
     await sozcu();
     console.log('-Scraping sozcu.com.tr finished. ' + sozcuUrls.length + ' URL\'s were successfully scraped.')
     console.log('* Starting to save scraped url\'s into "resources/WebPageUrls.json" file ...')
-     console.log('-Scraping https://www.aydinlik.com.tr finished. ' + aydınlıkUrls.length + ' URL\'s were successfully scraped.')
-     console.log('* Starting to save scraped url\'s into "resources/WebPageUrls.json" file ...')
-     console.log('-Scraping https://www.korkusuz.com.tr/ finished. ' + korkusuzUrls.length + ' URL\'s were successfully scraped.')
-     console.log('* Starting to save scraped url\'s into "resources/WebPageUrls.json" file ...')
+    console.log('-Scraping https://www.aydinlik.com.tr finished. ' + aydınlıkUrls.length + ' URL\'s were successfully scraped.')
+    console.log('* Starting to save scraped url\'s into "resources/WebPageUrls.json" file ...')
+    console.log('-Scraping https://www.korkusuz.com.tr/ finished. ' + korkusuzUrls.length + ' URL\'s were successfully scraped.')
+    console.log('* Starting to save scraped url\'s into "resources/WebPageUrls.json" file ...')
     saveJson();
     console.log("*Successfully saved.")
 
