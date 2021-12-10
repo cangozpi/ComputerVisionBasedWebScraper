@@ -224,10 +224,13 @@ for(let k=0; k < 10; k++){
         }
         
         //extract page's height and width for normalizing bounding box coordinates
-        body_element = await (await page.$(".gallery-container")).boundingBox()
-        const page_height = body_element.height;
-        const page_width = body_element.width
-
+        
+        //body_element = await (await page.$(".gallery-container")).boundingBox()
+        //const page_height = body_element.height;
+        //const page_width = body_element.width
+        
+        const page_height = page.viewport().height
+        const page_width = page.viewport().width
 
         // work with extracted information
         str_row_infos = [] //each entry corresponds to an information that forms a row of the label.txt file
