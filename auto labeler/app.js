@@ -47,16 +47,23 @@ const shopping_extracted_elements_labels = ["title", "seller", "ratings", "price
 "question", "questions_button", "product_info", "product_specs", "photo", "selected_photo", "main_photo", "options",
 "summary", "product_desc"]
 
+const data_dir = './data'
+const site_dir =  data_dir + "/trendyol"
+const image_dir = site_dir + "/image"
+const label_dir = site_dir + "/label"
+    
+
 const puppeteer = require('puppeteer');
 // open the corresponding web pages
 //replace 1 with trendyolUrls.length in production
-for(let k=0; k < 10; k++){
-    (async () => {
+(async () => {
+        
+    //navigate to page
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.setDefaultNavigationTimeout(5*60*1000);
+    for(let k=0; k < 10; k++){
         currentUrl = trendyolUrls[k];
-        //navigate to page
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
-        await page.setDefaultNavigationTimeout(5*60*1000);
         // visit currentUrl's page
         await page.goto(currentUrl);
         //extract the coordinates of the DOM elements of interest from the given url
@@ -225,13 +232,14 @@ for(let k=0; k < 10; k++){
         
         //extract page's height and width for normalizing bounding box coordinates
         
-        //body_element = await (await page.$(".gallery-container")).boundingBox()
+        //body_element = await (await page.$(".container")).boundingBox()
         //const page_height = body_element.height;
-        //const page_width = body_element.width
+        //const page_width = body_element.width      
+        //console.log(page_width)
+        //console.log(page_height)
+        //const page_height = page.viewport().height
+        //const page_width = page.viewport().width
         
-        const page_height = page.viewport().height
-        const page_width = page.viewport().width
-
         // work with extracted information
         str_row_infos = [] //each entry corresponds to an information that forms a row of the label.txt file
         for(let i=0; i < extracted_elements_array.length; i++){
@@ -245,21 +253,36 @@ for(let k=0; k < 10; k++){
                     cur_el = current_element[j]
     
                     info_template.class_id = current_label
-                    info_template.center_x = cur_el.x/page_width //normalize the x value
-                    info_template.center_y = cur_el.y/page_height //normalize the y value
-                    info_template.width = cur_el.width/page_width //normalize
-                    info_template.height = cur_el.height/page_height //normalize
+                    
+                    //info_template.center_x = cur_el.x/page_width //normalize the x value
+                    //info_template.center_y = cur_el.y/page_height //normalize the y value
+                    //info_template.width = cur_el.width/page_width //normalize
+                    //info_template.height = cur_el.height/page_height //normalize
+                    
+                    info_template.center_x = cur_el.x + cur_el.width/2
+                    info_template.center_y = cur_el.y + cur_el.height/2
+                    info_template.width = cur_el.width
+                    info_template.height = cur_el.height
                     
                     var info_template_copy = JSON.parse(JSON.stringify(info_template)); //clone the object
                     
                     str_row_infos.push(info_template_copy)
                 }
-            }else{ //single element
+            }
+            
+            
+            else{ //single element
                 info_template.class_id = current_label
-                info_template.center_x = current_element.x/page_width //normalize the x value
-                info_template.center_y = current_element.y/page_height //normalize the y value
-                info_template.width = current_element.width/page_width //normalize
-                info_template.height = current_element.height/page_height //normalize
+                
+                //info_template.center_x = current_element.x/page_width //normalize the x value
+                //info_template.center_y = current_element.y/page_height //normalize the y value
+                //info_template.width = current_element.width/page_width //normalize
+                //info_template.height = current_element.height/page_height //normalize
+                
+                info_template.center_x = current_element.x + current_element.width/2
+                info_template.center_y = current_element.y + current_element.height/2
+                info_template.width = current_element.width
+                info_template.height = current_element.height
     
                 var info_template_copy = JSON.parse(JSON.stringify(info_template)); //clone the object
                 
@@ -287,39 +310,34 @@ for(let k=0; k < 10; k++){
         //create folder to save to
         const fs = require('fs');
         const path = require('path');
-    
-        const data_dir = './data'
-        const train_dir = './data/train';
-        const train_img_dir = './data/train/img';
-        const train_label_dir = './data/train/label';
-    
+        
         if (!fs.existsSync(data_dir)){
             fs.mkdirSync(data_dir);
         }
 
         
-        if (!fs.existsSync(train_dir)){
-            fs.mkdirSync(train_dir);
+        if (!fs.existsSync(site_dir)){
+            fs.mkdirSync(site_dir);
         }
 
-        if (!fs.existsSync(train_img_dir)){
-            fs.mkdirSync(train_img_dir);
+        if (!fs.existsSync(image_dir)){
+            fs.mkdirSync(image_dir);
         }
 
-        if (!fs.existsSync(train_label_dir)){
-            fs.mkdirSync(train_label_dir);
+        if (!fs.existsSync(label_dir)){
+            fs.mkdirSync(label_dir);
         }
     
         // save *label.txt into data_dir
         const uuid = `trendyol label${k}`;
-        obj_path = path.join(train_label_dir, uuid + '.txt');
+        obj_path = path.join(label_dir, uuid + '.txt');
     
         fs.writeFile (obj_path, label_str, (err) => {
             if (err) throw err;
         });
     
         //save screenshot of the current page and save with corresponding name
-        img_path = path.join(train_img_dir, uuid + '.jpeg');
+        img_path = path.join(image_dir, uuid + '.jpeg');
 
         await page.screenshot({ 
             path: img_path,
@@ -327,38 +345,7 @@ for(let k=0; k < 10; k++){
             fullPage: true
        });
 
-        await browser.close();
-      })();
-}
-
-
-
-
-//create data.yaml file required for yolov5
-//create data.yaml string 
-const train_img_dir = './data/train/img';
-let shopping_labels = "[";
-for(let i=0; i < shopping_extracted_elements_labels.length; i++){
-    shopping_labels += `'${shopping_extracted_elements_labels[i]}'`
-    if(i != shopping_extracted_elements_labels.length-1){
-        shopping_labels += ", ";
-    }else{
-        shopping_labels += "]";
-    }
-}
-yaml_str = `train: ${train_img_dir}\nval: ${train_img_dir}\nnc: ${shopping_extracted_elements_labels.length}\nnames: ${shopping_labels}`
-//create folder to save to
-const fs = require('fs');
-const path = require('path');
-
-const data_dir = './data'
-
-if (!fs.existsSync(data_dir)){
-    fs.mkdirSync(data_dir);
-}
-
-obj_path = path.join(data_dir, 'data.yaml');
-    
-fs.writeFile (obj_path, yaml_str, (err) => {
-    if (err) throw err;
-});
+        
+      }
+    await browser.close();
+})();
