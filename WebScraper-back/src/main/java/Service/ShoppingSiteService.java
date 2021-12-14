@@ -1,12 +1,10 @@
 package Service;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import model.ShoppingSiteModel;
 import org.springframework.stereotype.Service;
+
+import java.awt.datatransfer.SystemFlavorMap;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.IOException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
@@ -18,22 +16,13 @@ public class ShoppingSiteService {
 
     public ShoppingSiteModel scrapeShopping(String websiteType, String url) {
 
+        String filePath = getClass().getClassLoader().getResource("ExternalServices/Service.js").getFile();
+        System.out.println(filePath);
+        System.exit(0);
         String data = "";
         JSONObject shoppingSiteJSON = new JSONObject();
         try {
-            /*
-                //TODO: call node.js script to scrape url
-            Process process = new ProcessBuilder("C:\\Program Files\\nodejs\\node.exe", "hello.js --url:" + url).start();
-            InputStream is = process.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(isr);
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                data += line;
-            }
-            */
-            //convert String to JSONObject
+            new CommandLineService().runOnCommandLine("node ../ExternalServices/Service.js");
             JSONParser parser = new JSONParser();
             shoppingSiteJSON = (JSONObject) parser.parse(data);
 

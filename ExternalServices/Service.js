@@ -1,15 +1,26 @@
 const execSync = require('child_process').execSync;
-
+const fsExtra = require('fs-extra')
 const path = require('path');
+const fs = require('fs')
 
 var args = process.argv.slice(2);
 console.log(args[0])
 let siteUrl = args[0]
 let siteType = args[1]
 
-//./Screenshot/ScreenShot.js
-//./Screenshot/ScreenShot
+//Delete old files
 
+fsExtra.emptyDirSync("./OCR/OCR_output")
+fsExtra.emptyDirSync("./DataScraper/images")
+
+try {
+    fs.unlinkSync("./AI/yolov5/runs/detect/exp/labels/screenshot.txt")
+    fs.unlinkSync("./OCR/merged_text.txt")
+    //file removed
+  } catch(err) {
+    console.error(err)
+  }
+  process.exit();
 //Screenshot
 execSync(`node  ./Screenshot/ScreenShot.js "${siteUrl}"`,{stdio: 'inherit'});
 
@@ -18,3 +29,6 @@ execSync(`py ./AI/yolov5/detect.py --weights ./AI/${siteType}.pt --img 1251 --co
 
 //Clipper
 execSync(`node ./DataScraper/Clipper.js`,{stdio: 'inherit'});
+
+//OCR
+execSync(`node ./OCR/dataExtraction.js`,{stdio: 'inherit'});
