@@ -1,4 +1,4 @@
-package model;
+package com.webscraper.WebScraperback.model;
 
 public class ScrapeRequestModel {
 

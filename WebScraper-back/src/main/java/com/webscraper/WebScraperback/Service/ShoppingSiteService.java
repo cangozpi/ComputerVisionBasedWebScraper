@@ -1,11 +1,14 @@
-package Service;
+package com.webscraper.WebScraperback.Service;
 
-import model.ShoppingSiteModel;
+
+import com.webscraper.WebScraperback.model.ShoppingSiteModel;
 import org.springframework.stereotype.Service;
 
-import java.awt.datatransfer.SystemFlavorMap;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -16,13 +19,10 @@ public class ShoppingSiteService {
 
     public ShoppingSiteModel scrapeShopping(String websiteType, String url) {
 
-        String filePath = getClass().getClassLoader().getResource("ExternalServices/Service.js").getFile();
-        System.out.println(filePath);
-        System.exit(0);
         String data = "";
         JSONObject shoppingSiteJSON = new JSONObject();
         try {
-            new CommandLineService().runOnCommandLine("node ../ExternalServices/Service.js");
+            new CommandLineService().runOnCommandLine("cd ../../../../../../../ && cd ExternalServices && node Service.js \"" +url+"\" "+websiteType);
             JSONParser parser = new JSONParser();
             shoppingSiteJSON = (JSONObject) parser.parse(data);
 

@@ -1,4 +1,4 @@
-package model;
+package com.webscraper.WebScraperback.model;
 import java.awt.image.BufferedImage;
 
 public class ShoppingSiteModel {

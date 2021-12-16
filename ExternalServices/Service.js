@@ -20,7 +20,7 @@ try {
   } catch(err) {
     console.error(err)
   }
-  process.exit();
+
 //Screenshot
 execSync(`node  ./Screenshot/ScreenShot.js "${siteUrl}"`,{stdio: 'inherit'});
 

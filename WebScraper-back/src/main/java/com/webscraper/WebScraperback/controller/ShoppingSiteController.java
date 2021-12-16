@@ -1,11 +1,11 @@
-package controller;
+package com.webscraper.WebScraperback.controller;
 
 
-import Service.ShoppingSiteService;
-import model.ScrapeRequestModel;
-import model.ShoppingSiteModel;
+import com.webscraper.WebScraperback.Service.ShoppingSiteService;
+
+import com.webscraper.WebScraperback.model.ScrapeRequestModel;
+import com.webscraper.WebScraperback.model.ShoppingSiteModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,5 +22,6 @@ public class ShoppingSiteController {
 
         return shoppingSiteService.scrapeShopping(scrapeRequestModel.getWebsiteType(), scrapeRequestModel.getTargetURL());
     }
+
 
 }
