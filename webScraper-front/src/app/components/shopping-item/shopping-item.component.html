@@ -1,0 +1,48 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+    <!-- Product Title Column -->
+    <ng-container matColumnDef="product-title">
+      <th mat-header-cell *matHeaderCellDef> Product Title </th>
+      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+  
+    <!-- Seller Info Column -->
+    <ng-container matColumnDef="product-sellerInfo">
+      <th mat-header-cell *matHeaderCellDef> Seller Info </th>
+      <td mat-cell *matCellDef="let element"> {{element.info}} </td>
+    </ng-container>
+  
+    <!-- Product Rating Column -->
+    <ng-container matColumnDef="product-rating">
+      <th mat-header-cell *matHeaderCellDef> Rating </th>
+      <td mat-cell *matCellDef="let element"> {{element.rating}} </td>
+    </ng-container>
+  
+    <!-- Product Price Column -->
+    <ng-container matColumnDef="product-price">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+    <!-- Comments Column -->
+    <ng-container matColumnDef="product-comments">
+        <th mat-header-cell *matHeaderCellDef> Comments </th>
+        <td mat-cell *matCellDef="let element"> 
+            <button mat-button (click)="openDialog()">
+                Show Comments 
+                <mat-icon aria-hidden="false" aria-label="comments">question_answer</mat-icon>
+                <mat-icon aria-hidden="false" aria-label="comments_modal">zoom_in</mat-icon>
+            </button>    
+        </td>
+      </ng-container>
+
+      <!--
+          Comments column backup
+    <ng-container matColumnDef="product-comments">
+        <th mat-header-cell *matHeaderCellDef> Comments </th>
+        <td mat-cell *matCellDef="let element"> {{element.comments}} </td>
+      </ng-container>
+       -->
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

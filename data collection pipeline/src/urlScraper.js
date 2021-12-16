@@ -177,7 +177,7 @@ scrapeDH = async (baseSearchUrl, productHrefElementQuery,pg_limit) => {
         element.forEach(extractUrlDH);
         }
     } catch (error) {
-      console.error("Something went wrong while scraping donanım haber --> \n\t" + error);
+      console.error("Something went wrong while scraping donanim haber --> \n\t" + error);
     }
   }
 

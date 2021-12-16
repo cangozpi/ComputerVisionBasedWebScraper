@@ -1,0 +1,37 @@
+<div class="main container">
+    <form [formGroup]="inputForm" (ngSubmit)="onSubmit()"
+    class="row justify-content-around align-items-center p-md-2 p-sm-1">
+
+
+        <mat-form-field class="input-1 col-md-3 col-sm-7">
+            <mat-label>Website type: <mat-icon>link</mat-icon></mat-label>
+            <mat-select matNativeControl required  formControlName="websiteType">
+            <mat-option value="shopping-site">
+                Shopping Site
+            </mat-option>
+            <mat-option value="forum-site">
+                Forum Site
+            </mat-option>
+            <mat-option value="news-site">
+                News Site
+            </mat-option>
+            <mat-option value="infer-site">
+                Infer the type
+            </mat-option>
+            </mat-select>
+        </mat-form-field>
+      
+        
+        <mat-form-field class="input-2 col-md-5 col-sm-8">
+            <mat-label>Target URL:</mat-label> 
+            <input matInput type="url" [(ngModel)]="value" required  formControlName="targetURL">
+            <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+        
+        <button type="submit" [disabled]="!inputForm.valid" class="btn-1 h-50 col-md-2 col-sm-5 mb-md-0 mb-sm-3" mat-raised-button color="primary">Scrape <mat-icon>play_arrow</mat-icon></button>
+
+    </form>
+    
+</div>

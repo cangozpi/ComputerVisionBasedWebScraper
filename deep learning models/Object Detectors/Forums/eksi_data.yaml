@@ -1,0 +1,15 @@
+
+
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path: ../eksi/  # dataset root dir
+train: images/train  # train images (relative to 'path') 128 images
+val: images/val  # val images (relative to 'path') 128 images
+test: images/test  # test images (optional)
+
+# Classes
+nc: 9  # number of classes
+names: [ "title", "search_box", "date_info","post_owner",
+           "main_topic","main_post","answer","answer_owner","forum_category"] # class names
+
+
+

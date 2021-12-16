@@ -1,12 +1,13 @@
-// For now run this short script to see if your installations are compatible.
-
 var fs = require('fs');
 const puppeteer = require('puppeteer');
 const path = require('path');
 
 // Create a folder to install scraped images from the web
 var dir = './websiteScreenshots';
-
+// add extension to the chrome
+//https://chrome.google.com/webstore/detail/i-dont-care-about-cookies/fihnjjcciajhdojfnbdddfaoknhalnja
+// change the below const to your extensions directory.
+const dontcarecookies = 'C:\\Users\\vasilis\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\laankejkbhbdhmipfmgcngdelahlfoji\\1.6.0_0';
 if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
 }
@@ -17,7 +18,14 @@ process.setMaxListeners(0);
 
 // Function that saves a screenshot of the page at url into the directory dir
 takeScreenshot = async (url, dir) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: false,
+    args: [
+      `--disable-extensions-except=${dontcarecookies}`, 
+      `--load-extension=${dontcarecookies}`,
+      '--enable-automation'
+    ]
+  } );
   const page = await browser.newPage();
   // Configure the navigation timeout
   await page.setDefaultNavigationTimeout(5*60*1000);
