@@ -26,7 +26,7 @@ if (file.includes('review') || file.includes('title') || file.includes('price') 
   });
   console.log('Before')
   console.log(text)
-  text = text.replace(/(\r\n|\n|\r)/gm, "");
+  text = text.replace(/(\r\n|\n|\r|'\u{U+000c}')/gm, "");
   console.log('After')
   console.log(text)
   if (file.includes('review')){
@@ -37,6 +37,12 @@ if (file.includes('review') || file.includes('title') || file.includes('price') 
         console.log("The file was saved!");
     }); 
   }
+  fs.appendFile("./OCR/merged_text.txt", "\n", function(err) {
+    if(err) {
+        return console.log(err);
+    }
+    console.log("The file was saved!");
+}); 
     console.log("Result:", text)
   })
   .catch((error) => {
