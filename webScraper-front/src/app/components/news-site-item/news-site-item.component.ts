@@ -17,7 +17,9 @@ export class NewsSiteItemComponent implements OnInit {
   constructor(public dialog: MatDialog) { }
 
   openDialog() {
-    const dialogRef = this.dialog.open(NewsMainTextComponent);
+    const dialogRef = this.dialog.open(NewsMainTextComponent, {
+      data: {main_txt: JSON_main_txt}
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -29,6 +31,18 @@ export class NewsSiteItemComponent implements OnInit {
   
 }
 
+// Template for the response of the Forum Site Scraping
+export interface ResponseJSON{
+  main_topic: string,
+  main_post: string,
+  post_owner: string,
+  date_info: string,
+  forum_category: string
+  main_text: string
+}
+
+
+let JSON_main_txt: string = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo maxime sapiente perferendis tempore corrupti sint labore fuga in quibusdam, itaque optio cupiditate delectus, iste commodi! Nisi iusto rem blanditiis maxime!"
 
 export interface NewsItem {
   title: string 
