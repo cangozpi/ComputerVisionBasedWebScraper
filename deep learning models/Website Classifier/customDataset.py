@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import torch
 from torch.utils.data import Dataset
-from skimage import io
+import cv2
 
 class WebsiteClassificationDataset(Dataset):
    
@@ -15,8 +15,9 @@ class WebsiteClassificationDataset(Dataset):
         return len(self.annotations)
     
     def __getitem__(self,index):
-        img_path = os.path.join(self.root_dir,self.annotations.iloc[index,0]
-        image = io.imread(img_path)
+        img_path = os.path.join(self.root_dir,self.annotations.iloc[index,0])
+        
+        image = cv2.imread(img_path)
         y_label = torch.tensor(int(self.annotations.iloc[index,1]))
         if self.transform:
             image = self.transform(image)
