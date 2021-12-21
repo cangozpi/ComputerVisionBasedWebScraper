@@ -15,6 +15,8 @@ import { ShoppingItemComponent } from './components/shopping-item/shopping-item.
 import { ItemCommentsComponent } from './components/shopping-item/item-comments/item-comments.component';
 import { NewsSiteItemComponent } from './components/news-site-item/news-site-item.component';
 import { NewsMainTextComponent } from './components/news-site-item/news-main-text/news-main-text.component';
+import { ForumSiteItemComponent } from './components/forum-site-item/forum-site-item.component';
+import { ForumAnswersComponent } from './components/forum-site-item/forum-answers/forum-answers.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { NewsMainTextComponent } from './components/news-site-item/news-main-tex
     ShoppingItemComponent,
     ItemCommentsComponent,
     NewsSiteItemComponent,
-    NewsMainTextComponent
+    NewsMainTextComponent,
+    ForumSiteItemComponent,
+    ForumAnswersComponent
   ],
   imports: [
     BrowserModule,
