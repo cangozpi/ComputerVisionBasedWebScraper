@@ -11,7 +11,6 @@ const config = {
 const folder = './DataScraper/images/';
 
 fs.readdirSync(folder).forEach(file => {
-  console.log();
   
 if (!file.includes('photo') && !file.includes('button')){
   console.log(folder + file)
@@ -24,11 +23,7 @@ if (!file.includes('photo') && !file.includes('button')){
       }
       console.log("The file was saved!");
   });
-  console.log('Before')
-  console.log(text)
   text = text.replace(/(\r\n|\n|\r|'\u{U+000c}')/gm, "");
-  console.log('After')
-  console.log(text)
   if (file.includes('review')){
     fs.appendFile("./OCR/merged_text.txt", text, function(err) {
         if(err) {
@@ -43,7 +38,7 @@ if (!file.includes('photo') && !file.includes('button')){
     }
     console.log("The file was saved!");
 }); 
-    console.log("Result:", text)
+    //console.log("Result:", text)
   })
   .catch((error) => {
     console.log(error.message)
