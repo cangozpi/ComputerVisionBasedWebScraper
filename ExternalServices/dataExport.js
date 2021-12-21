@@ -25,7 +25,7 @@ fs.readdir(imageFolder, function (err, files) {
         
         // Do whatever you want to do with the file
         if (file.includes('photo')){
-        data.push({file: base64_encode(imageFolder + file)});
+        data.push({[file]: base64_encode(imageFolder + file)});
         }
     });
     let jsonData = JSON.stringify(data);
@@ -49,7 +49,7 @@ fs.readdir(ocrFolder, function (err, files) {
         files.forEach(function (file) {
             // Do whatever you want to do with the file
             var ocr = fs.readFileSync(ocrFolder + file, {encoding:'utf8', flag:'r'});
-            data.push({file : ocr})
+            data.push({[file] : ocr})
         });
       json.ocr_output = data
       fs.writeFileSync("data.json", JSON.stringify(json))
