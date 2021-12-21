@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-forum-answers',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForumAnswersComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+    // console.log(data.answers[0].answer_owner)
+    // console.log(data.answers[0].answer)
+  }
 
   ngOnInit(): void {
   }

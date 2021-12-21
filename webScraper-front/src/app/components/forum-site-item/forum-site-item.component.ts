@@ -1,3 +1,4 @@
+import { TypeofExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { ForumAnswersComponent } from './forum-answers/forum-answers.component';
@@ -15,7 +16,9 @@ export class ForumSiteItemComponent implements OnInit {
   constructor(public dialog: MatDialog) { }
 
   openDialog() {
-    const dialogRef = this.dialog.open(ForumAnswersComponent);
+    const dialogRef = this.dialog.open(ForumAnswersComponent, {
+      data: {answers: AnswersJSON.answers}
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -25,7 +28,37 @@ export class ForumSiteItemComponent implements OnInit {
   ngOnInit(): void {
   }
   
+
 }
+
+// Template for the response of the Forum Site Scraping
+export interface ResponseJSON{
+  main_topic: string,
+  main_post: string,
+  post_owner: string,
+  date_info: string,
+  forum_category: string
+  data: [{answer_owner: string, answer: string}]
+}
+
+
+let AnswersJSON = {
+  answers:[
+    {
+    'answer_owner': 'AnswerOwner1',
+    'answer': "Cevap1"
+  },
+  {
+    'answer_owner': 'AnswerOwner2',
+    'answer': "Cevap2"
+  },
+  {
+    'answer_owner': 'AnswerOwner3',
+    'answer': "Cevap3"
+  }
+],
+}
+
 
 
 export interface ProductItem {

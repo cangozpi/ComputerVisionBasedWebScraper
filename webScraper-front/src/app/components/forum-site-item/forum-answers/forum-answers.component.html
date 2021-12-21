@@ -8,30 +8,13 @@
     </div>
 </div>
 
+
 <!-- Answer entries goes below -->
-<div class="row">
+<div class="row" *ngFor="let answer of data.answers">
     <div class="col border-top">
-        <p><b>Ali Veli</b></p>
+        <p><b>{{answer.answer_owner}}</b></p>
     </div>
     <div class="col border-top">
-        <p><em>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas praesentium id commodi!</em></p>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col border-top">
-        <p><b>Ali Veli</b></p>
-    </div>
-    <div class="col border-top">
-        <p><em>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas praesentium id commodi!</em></p>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col border-top">
-        <p><b>Ali Veli</b></p>
-    </div>
-    <div class="col border-top">
-        <p><em>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas praesentium id commodi!</em></p>
+        <p><em>{{answer.answer}}</em></p>
     </div>
 </div>
