@@ -13,7 +13,7 @@ const folder = './DataScraper/images/';
 fs.readdirSync(folder).forEach(file => {
   console.log();
   
-if (file.includes('review') || file.includes('title') || file.includes('price') || file.includes('info')){
+if (!file.includes('photo') && !file.includes('button')){
   console.log(folder + file)
   tesseract
   .recognize(folder + file, config)
