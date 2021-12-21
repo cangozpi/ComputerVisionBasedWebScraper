@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AccordionExplanationComponent } from './components/accordion-explanation/accordion-explanation.component';
 import { ShoppingItemComponent } from './components/shopping-item/shopping-item.component';
 import { ItemCommentsComponent } from './components/shopping-item/item-comments/item-comments.component';
+import { NewsSiteItemComponent } from './components/news-site-item/news-site-item.component';
+import { NewsMainTextComponent } from './components/news-site-item/news-main-text/news-main-text.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ItemCommentsComponent } from './components/shopping-item/item-comments/
     InputFormComponent,
     AccordionExplanationComponent,
     ShoppingItemComponent,
-    ItemCommentsComponent
+    ItemCommentsComponent,
+    NewsSiteItemComponent,
+    NewsMainTextComponent
   ],
   imports: [
     BrowserModule,
