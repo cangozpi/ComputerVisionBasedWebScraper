@@ -1,20 +1,27 @@
-<!-- Layout Column Names -->
-<div class="row">
-    <div class="col">
-        <h2>Answer Owner:</h2>
+<mat-dialog-content class="mat-typography">
+
+    <!-- Layout Column Names -->
+    <div class="row">
+        <div class="col">
+            <h2>Answer Owner:</h2>
+        </div>
+        <div class="col">
+            <h2>Answer:</h2>
+        </div>
     </div>
-    <div class="col">
-        <h2>Answer:</h2>
-    </div>
-</div>
 
 
-<!-- Answer entries goes below -->
-<div class="row" *ngFor="let answer of data.answers">
-    <div class="col border-top">
-        <p><b>{{answer.answer_owner}}</b></p>
+    <!-- Answer entries goes below -->
+    <div class="row" *ngFor="let answer of data.answers">
+        <div class="col border-top">
+            <p><b>{{answer.answer_owner}}</b></p>
+        </div>
+        <div class="col border-top">
+            <p><em>{{answer.answer}}</em></p>
+        </div>
     </div>
-    <div class="col border-top">
-        <p><em>{{answer.answer}}</em></p>
-    </div>
-</div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
