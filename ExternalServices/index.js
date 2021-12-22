@@ -11,9 +11,9 @@ var jsonParser = bodyParser.json()
 app.post("/scrape/shoppingSite/scrapeShopping", jsonParser, (req, res) => {
     let websiteType = req.body.websiteType
     let targetURL = req.body.targetURL
-    console.log(websiteType)
-    execSync(`node  ./Service.js "${targetURL}" ${websiteType}`,{stdio: 'inherit'});
-    res.sendFile(path.join(__dirname, '../', 'data.json'));
+    console.log(req.body)
+    //execSync(`node  ./Service.js "${targetURL}" ${websiteType}`,{stdio: 'inherit'});
+    res.sendFile(path.join(__dirname, './', 'data.json'));
   });
 
 app.listen(8080, () => {
