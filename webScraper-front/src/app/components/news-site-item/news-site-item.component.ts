@@ -31,7 +31,7 @@ export class NewsSiteItemComponent implements OnInit {
   
 }
 
-// Template for the response of the Forum Site Scraping
+// Template for the response of the News Site Scraping
 export interface ResponseJSON{
   main_topic: string,
   main_post: string,

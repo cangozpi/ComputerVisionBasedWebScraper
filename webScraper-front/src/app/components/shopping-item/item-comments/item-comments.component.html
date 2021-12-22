@@ -1,67 +1,37 @@
-<h2 mat-dialog-title>Current Products name will go here</h2>
+<h2 mat-dialog-title> <b>Product Details</b></h2>
 <mat-dialog-content class="mat-typography">
-  <h4><b>Comments will go below:</b></h4>
-  <h3>Lorem, ipsum dolor.</h3>
-  <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-      Cum odit tempore ratione eum incidunt quos obcaecati, repudiandae aspernatur?
-       Labore fugit rerum nihil reiciendis, ducimus repellendus? Vero repudiandae officia
-        excepturi doloremque?</p>
+  
+  <h3><b>Product Summary</b></h3>
+  <p>{{data.details.summary}}</p>
 
-  <h3>Lorem ipsum dolor sit.</h3>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni rerum fuga non nisi 
-      est officiis ullam beatae fugiat incidunt asperiores!</p>
+  <hr>
 
-  <h3>Lorem ipsum dolor sit amet.</h3>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam quis sunt omnis dolorum
-       veritatis exercitationem? Sit consequuntur illo laudantium unde sint vitae ipsum corporis
-        quos voluptate ex, architecto dolores reprehenderit culpa facere sapiente accusamus? 
-        Ipsam facilis aliquid deleniti pariatur corrupti.</p>
+  <h3><b>Product Options</b></h3>
+  <p>{{data.details.options}}</p>
 
-  <h3>Lorem, ipsum.</h3>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque officia fugiat rem.
-       Mollitia dicta quas, tempore nostrum quod eaque nisi debitis cumque dolorem deserunt, 
-       consequatur harum sint natus reiciendis adipisci praesentium exercitationem quaerat, 
-       deleniti enim. Nobis repellat adipisci nemo est aliquid hic veritatis provident.</p>
+  <hr>
 
-  <h3>Lorem ipsum dolor sit.</h3>
+  <h3><b>Product Info</b></h3>
+  <p>{{data.details.product_info}}</p>
 
-  <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam beatae eos, quibusdam 
-      necessitatibus vel sit tempore illo nihil tempora reprehenderit maxime? Dolore saepe illo 
-      vero repellat, voluptatibus quibusdam assumenda cum facere dicta ullam?</p>
+  <hr>
 
-  <h3>Lorem, ipsum.</h3>
+  <h3><b>Product Description</b></h3>
+  <p>{{data.details.product_desc}}</p>
 
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus minus aspernatur aliquam
-       quidem non reiciendis temporibus est molestiae culpa optio, delectus sit aut repellendus
-        consequatur veniam fugiat commodi, hic unde voluptatum exercitationem enim in. Libero quia
-         maiores corporis, perferendis dignissimos blanditiis recusandae.</p>
+  <hr>
 
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed non iusto officia explicabo 
-      magnam repellat incidunt accusantium odio corrupti repudiandae sequi, et fugit voluptate 
-      consequuntur id praesentium magni? Soluta a impedit magnam animi, ipsa debitis et, consequatur
-       accusamus tenetur ad accusantium hic. Culpa velit deserunt, voluptatibus impedit itaque optio
-        eum aut possimus tenetur?</p>
+  <h3><b>Product Specifications</b></h3>
+  <p>{{data.details.product_specs}}</p>
 
-  <p>Components define views, which are sets of screen elements that Angular can choose among and
-  modify according to your program logic and data. Every app has at least a root component.</p>
+  <hr>
 
-  <p>Components use services, which provide specific functionality not directly related to views.
-  Service providers can be injected into components as dependencies, making your code modular,
-  reusable, and efficient.</p>
+  <!-- Dynamically render reviews -->
+  <h3><b>Reviews</b></h3>
+  <ul *ngFor="let review of data.details.reviews">
+    <li>{{review}}</li>
+  </ul>
 
-  <p>Both components and services are simply classes, with decorators that mark their type and
-  provide metadata that tells Angular how to use them.</p>
-
-  <p>The metadata for a component class associates it with a template that defines a view. A
-  template combines ordinary HTML with Angular directives and binding markup that allow Angular
-  to modify the HTML before rendering it for display.</p>
-
-  <p>The metadata for a service class provides the information Angular needs to make it available
-  to components through Dependency Injection (DI).</p>
-
-  <p>An app's components typically define many views, arranged hierarchically. Angular provides
-  the Router service to help you define navigation paths among views. The router provides
-  sophisticated in-browser navigational capabilities.</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
