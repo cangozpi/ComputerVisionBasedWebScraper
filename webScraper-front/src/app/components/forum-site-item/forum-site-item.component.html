@@ -1,0 +1,46 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+    
+    <ng-container matColumnDef="main_topic">
+      <th mat-header-cell *matHeaderCellDef> Main Topic </th>
+      <td mat-cell *matCellDef="let element"> {{element.main_topic}} </td>
+    </ng-container>
+  
+    
+    <ng-container matColumnDef="main_post">
+      <th mat-header-cell *matHeaderCellDef> Main Post </th>
+      <td mat-cell *matCellDef="let element"> {{element.main_post}} </td>
+    </ng-container>
+  
+    
+    <ng-container matColumnDef="post_owner">
+      <th mat-header-cell *matHeaderCellDef> Post Owner </th>
+      <td mat-cell *matCellDef="let element"> {{element.post_owner}} </td>
+    </ng-container>
+  
+    
+    <ng-container matColumnDef="date_info">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.date_info}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="forum_category">
+        <th mat-header-cell *matHeaderCellDef> Forum Category </th>
+        <td mat-cell *matCellDef="let element"> {{element.forum_category}} </td>
+    </ng-container>
+
+    <!-- Comments Column -->
+    <ng-container matColumnDef="answers">
+        <th mat-header-cell *matHeaderCellDef> Answers </th>
+        <td mat-cell *matCellDef="let element"> 
+            <button mat-button (click)="openDialog()">
+                Show Answers 
+                <mat-icon aria-hidden="false" aria-label="comments">question_answer</mat-icon>
+                <mat-icon aria-hidden="false" aria-label="comments_modal">zoom_in</mat-icon>
+            </button>    
+        </td>
+      </ng-container>
+
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

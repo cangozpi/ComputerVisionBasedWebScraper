@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-item-comments',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemCommentsComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+    // console.log(data.details)
+    // console.log(data.details.reviews)
+    // console.log(data.details.product_info)
+  }
 
   ngOnInit(): void {
   }

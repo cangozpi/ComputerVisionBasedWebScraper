@@ -11,7 +11,7 @@
               [attr.aria-expanded]="accordionItem1.expanded"
               [attr.aria-controls]="'accordion-body-1'">
               <div class="example-accordion-item-header" (click)="accordionItem1.toggle()">
-                Shopping Site scraping <mat-icon class="icon">shopping_cart</mat-icon>
+                Shopping Site Scraping <mat-icon class="icon">shopping_cart</mat-icon>
                 <span class="example-accordion-item-description">
                   Click to {{ accordionItem1.expanded ? 'close' : 'open' }}
                 </span>
@@ -57,11 +57,11 @@
                 [attr.aria-labelledby]="'accordion-header-2'">
                 <p>Returns: <br> </p>
                     <ul>
-                        <li><em>Product Title</em> <br></li>
-                        <li><em>Seller Info</em> <br></li>
-                        <li><em>Product Rating</em> <br></li>
-                        <li><em>Products Price</em> <br></li>
-                        <li><em>Comments on the Product</em> <br></li>   
+                        <li><em>Main Topic</em> <br></li>
+                        <li><em>Main Post</em> <br></li>
+                        <li><em>Post Owner</em> <br></li>
+                        <li><em>Date Info</em> <br></li>
+                        <li><em>Answers(i.e. [answer_owner, answer])</em> <br></li>   
                     </ul>
               </div>
             </cdk-accordion-item>
@@ -90,11 +90,13 @@
                 [attr.aria-labelledby]="'accordion-header-3'">
                 <p>Returns: <br> </p>
                     <ul>
-                        <li><em>Product Title</em> <br></li>
-                        <li><em>Seller Info</em> <br></li>
-                        <li><em>Product Rating</em> <br></li>
-                        <li><em>Products Price</em> <br></li>
-                        <li><em>Comments on the Product</em> <br></li>   
+                        <li><em>Title</em> <br></li>
+                        <li><em>Writer</em> <br></li>
+                        <li><em>Date Info</em> <br></li>
+                        <li><em>Subtitle</em> <br></li>
+                        <li><em>Main Text Titles</em> <br></li>
+                        <li><em>Main Text</em> <br></li>
+                        <li><em>Photo</em> <br></li>   
                     </ul>
               </div>
             </cdk-accordion-item>
@@ -121,13 +123,11 @@
                [style.display]="accordionItem4.expanded ? '' : 'none'"
                [attr.id]="'accordion-body-4'"
                [attr.aria-labelledby]="'accordion-header-4'">
-               <p>Returns: <br> </p>
+               <p>Returns<em>(one of the below)</em>:<br> </p>
                 <ul>
-                    <li><em>Product Title</em> <br></li>
-                    <li><em>Seller Info</em> <br></li>
-                    <li><em>Product Rating</em> <br></li>
-                    <li><em>Products Price</em> <br></li>
-                    <li><em>Comments on the Product</em> <br></li>   
+                    <li><em>Shopping Site Scraping</em> <br></li>
+                    <li><em>Forum Site Scraping</em> <br></li>
+                    <li><em>News Site Scraping</em> <br></li>   
                 </ul>
             
              </div>
