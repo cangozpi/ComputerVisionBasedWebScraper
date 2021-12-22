@@ -1,8 +1,10 @@
 const express = require("express");
 const execSync = require('child_process').execSync;
 const path = require('path');
+var cors = require('cors')
 var bodyParser = require('body-parser');
 const app = express();
+app.use(cors())
 
 // create application/json parser
 var jsonParser = bodyParser.json()
