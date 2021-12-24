@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-input-form',
@@ -8,6 +9,11 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./input-form.component.css']
 })
 export class InputFormComponent implements OnInit {
+  @Output() newScrapingEvent = new EventEmitter<ShoppingResponseJSON>();
+
+  sendShoppingScrapingEvent(data: ShoppingResponseJSON){
+    this.newScrapingEvent.emit(data);
+  }
 
   // Form handling
   inputForm = new FormGroup({
@@ -25,9 +31,9 @@ export class InputFormComponent implements OnInit {
     //make POST request to server for /surveillanceUpload
     let url = "http://localhost:8080/scrape/shoppingSite/scrapeShopping"; //TODO: change localhost 
     this.http.post(url, scrapeRequestTemplate).toPromise().then((data:any) => {
-      console.log(data)
+      //console.log(data)
       // parse the response body
-      let ResponseJSON: ShoppingResponseJSON = {
+      let responseJSON: ShoppingResponseJSON = {
         title : data.title,
         seller: data.seller,
         ratings: data.ratings,
@@ -41,7 +47,8 @@ export class InputFormComponent implements OnInit {
         product_desc: data.product_desc,
       }
 
-      console.log(ResponseJSON)
+      // console.log(ResponseJSON)
+      this.sendShoppingScrapingEvent(responseJSON)
       if(scrapeRequestTemplate.websiteType == "shopping-site"){
         
 
@@ -50,8 +57,7 @@ export class InputFormComponent implements OnInit {
       }else if(scrapeRequestTemplate.websiteType == "news-site"){
 
       }
-      // console.log(data)
-      // console.log(data.main_photo)
+     
     })
 
   }
