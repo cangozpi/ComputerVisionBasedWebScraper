@@ -1,8 +1,39 @@
-const fs = require('fs')
+const fs = require('fs');
+const { exit } = require('process');
 
 const imageFolder = './DataScraper/images/';
 const ocrFolder = './OCR/OCR_output/';
+var args = process.argv.slice(2);
+let siteType = args[0]
 
+
+
+switch (siteType) {
+    case 'shopping-site':
+        let jsonTemplate = {
+            title: null,
+            seller: null,
+            ratings: null,
+            price: null,
+            reviews: null,
+            product_info: null,
+            product_specs: null,
+            main_photo: null,
+            options: null,
+            summary: null,
+            product_desc: null
+        }
+        populateJSON(jsonTemplate);
+        break;
+    case 'forum-site':
+        break;
+    case 'news-site':
+        break;
+    default:
+        console.log("siteType does not exist.[DataExport.js]");
+
+}
+exit()
 
 // function to encode file data to base64 encoded string
 function base64_encode(file) {
@@ -12,47 +43,35 @@ function base64_encode(file) {
     return new Buffer.from(bitmap).toString('base64');
 }
 
-fs.readdir(imageFolder, function (err, files) {
-    let data = []
+async function populateJSON(jsonTemplate) {
+    try {
+        files = fs.readdirSync(imageFolder);
+            files.forEach(function (file) {
+                if (!file.includes("review")) {
+                    jsonTemplate[file.slice(0, -5)] = base64_encode(imageFolder + file);
+                } 
+            });
 
-    //handling error
-    if (err) {
-        return console.log('Unable to scan directory: ' + err);
-    } 
-
-    //listing all files using forEach
-    files.forEach(function (file) {
-        
-        // Do whatever you want to do with the file
-        if (file.includes('photo')){
-        data.push({[file]: base64_encode(imageFolder + file)});
-        }
-    });
-    let jsonData = JSON.stringify(data);
-    fs.writeFileSync('data.json', jsonData);
-});
-
-fs.readdir(ocrFolder, function (err, files) {
-    let data = []
+            fs.writeFileSync('data.json', JSON.stringify(jsonTemplate));
+    } catch (err) {
+        console.error('Error occured while reading directory!', err);
+    }
  
-
-    //handling error
-    if (err) {
-        return console.log('Unable to scan directory: ' + err);
-    } 
-
-
-    fs.readFile('data.json', function (err, dat) {
-        var json ={}
-        json.images = JSON.parse(dat)
-
+    try {
+        files = fs.readdirSync(ocrFolder);
+        reviews = []
         files.forEach(function (file) {
             // Do whatever you want to do with the file
-            var ocr = fs.readFileSync(ocrFolder + file, {encoding:'utf8', flag:'r'});
-            data.push({[file] : ocr})
+            var ocr = fs.readFileSync(ocrFolder + file, { encoding: 'utf8', flag: 'r' });
+            if (file.includes("review")) {
+                reviews.push( ocr )
+            } else {
+                jsonTemplate[file.slice(0, -4)] = ocr
+            }
         });
-      json.ocr_output = data
-      fs.writeFileSync("data.json", JSON.stringify(json))
-     
-    })
-});
+        if (siteType === "shopping-site") jsonTemplate["reviews"] = reviews
+        fs.writeFileSync("data.json", JSON.stringify(jsonTemplate))
+    } catch (err) {
+        console.error('Error occured while reading directory!', err);
+    }
+}
