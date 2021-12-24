@@ -64,13 +64,14 @@ async function populateJSON(jsonTemplate) {
             // Do whatever you want to do with the file
             var ocr = fs.readFileSync(ocrFolder + file, { encoding: 'utf8', flag: 'r' });
             if (file.includes("review")) {
-                reviews.push({ [file.slice(0, -4)]: ocr })
+                reviews.push(ocr)
             } else {
                 jsonTemplate[file.slice(0, -4)] = ocr
             }
         });
         if (siteType === "shopping-site") jsonTemplate["reviews"] = reviews
         fs.writeFileSync("data.json", JSON.stringify(jsonTemplate))
+        console.log("data.json created.")
     } catch (err) {
         console.error('Error occured while reading directory!', err);
     }
