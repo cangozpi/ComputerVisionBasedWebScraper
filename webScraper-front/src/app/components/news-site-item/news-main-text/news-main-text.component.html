@@ -1,2 +1,31 @@
-<h2>Main Text:</h2>
-<p>{{data.main_txt}}</p>
+<h2 mat-dialog-title> <b>News Details</b></h2>
+<mat-dialog-content class="mat-typography">
+
+    <!-- Dynamically render titles -->
+    <!-- <h3><b>Titles</b></h3>
+    <ul *ngFor="let title of data.details.main_text_titles">
+        <li>{{title}}</li>
+    </ul> -->
+
+    <hr>
+
+    <h3><b>Subtitle</b></h3>
+    <p>{{data.details.subtitle}}</p>
+
+    <hr>
+
+    <h3><b>Main Text</b></h3>
+    <p>{{data.details.product_info}}</p>
+
+    <hr>
+
+    <!-- <h3><b>Photo</b></h3>
+    <p>{{data.details.product_desc}}</p>
+
+    <hr> -->
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

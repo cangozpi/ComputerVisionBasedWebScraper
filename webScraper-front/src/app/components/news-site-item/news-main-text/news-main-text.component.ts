@@ -8,7 +8,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 })
 export class NewsMainTextComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {main_txt: string}) { 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { 
     // console.log(data.main_txt)
   }
 

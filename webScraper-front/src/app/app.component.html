@@ -12,6 +12,7 @@
       <app-input-form 
       (newShoppingScrapingEvent) = "receiveShoppingScrapingEvent($event)"
       (newForumScrapingEvent) = "receiveForumScrapingEvent($event)"
+      (newNewsScrapingEvent) = "receiveNewsScrapingEvent($event)"
       ></app-input-form>
     </div>
     <div class="col-md-4 col-sm-11 mt-sm-3 justify-content-center align-self-center">
@@ -44,7 +45,7 @@
       <div class="col"> <h2 style="text-align: center;">News Site Scraped Information</h2></div>
       <div class="w-100"></div>
       <div class="col-md-8">
-        <app-news-site-item></app-news-site-item>
+        <app-news-site-item  [newsScrapedInfo]="newsScrapedInfo"></app-news-site-item>
       </div>
     </div>
   

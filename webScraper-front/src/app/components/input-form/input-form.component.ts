@@ -11,6 +11,7 @@ import { Output, EventEmitter } from '@angular/core';
 export class InputFormComponent implements OnInit {
   @Output() newShoppingScrapingEvent = new EventEmitter<ShoppingResponseJSON>();
   @Output() newForumScrapingEvent = new EventEmitter<ForumResponseJSON>();
+  @Output() newNewsScrapingEvent = new EventEmitter<NewsResponseJSON>();
 
   sendShoppingScrapingEvent(data: ShoppingResponseJSON){
     this.newShoppingScrapingEvent.emit(data);
@@ -18,6 +19,10 @@ export class InputFormComponent implements OnInit {
 
   sendForumScrapingEvent(data: ForumResponseJSON){
     this.newForumScrapingEvent.emit(data);
+  }
+
+  sendNewsScrapingEvent(data: NewsResponseJSON){
+    this.newNewsScrapingEvent.emit(data);
   }
 
   // Form handling
@@ -67,7 +72,16 @@ export class InputFormComponent implements OnInit {
         this.sendForumScrapingEvent(responseJSON)
         // console.log(responseJSON)
       }else if(scrapeRequestTemplate.websiteType == "news-site"){
-
+        let responseJSON: NewsResponseJSON = {
+          title: data.title, 
+          writer: data.writer,
+          date_info: data.date_info,
+          subtitle: data.subtitle,
+          main_text: data.main_text,
+          main_text_titles: data.main_text_titles,
+          photo: data.photo,
+        }
+        this.sendNewsScrapingEvent(responseJSON)
       }
      
     })
@@ -108,4 +122,16 @@ export interface ForumResponseJSON{
   date_info: string,
   forum_category: string
   data: [{answer_owner: string, answer: string}]
+}
+
+
+// Template for the response of the News Site Scraping
+export interface NewsResponseJSON{
+  title: string, 
+  writer: string,
+  date_info: string,
+  subtitle: string,
+  main_text: string,
+  main_text_titles: string[],
+  photo: string,
 }

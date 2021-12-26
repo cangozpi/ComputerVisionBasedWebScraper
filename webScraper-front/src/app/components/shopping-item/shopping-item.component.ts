@@ -91,23 +91,6 @@ export class ShoppingItemComponent implements OnInit, OnChanges {
   
 }
 
-// Template for the response of the Forum Site Scraping
-export interface ResponseJSON{
-  title: string;
-  seller: string;
-  ratings: string;
-  price: string;
-  reviews: string[];
-  product_info: string;
-  product_specs: string;
-  main_photo: any;
-  options: string;
-  summary: string;
-  product_desc: string;
-}
-
-
-
 
 export interface ProductItem {
   title: string;

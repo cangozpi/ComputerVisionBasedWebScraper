@@ -48,6 +48,24 @@ export class AppComponent {
     this.forumScrapedInfo = data;
   }
 
+  // ================ News =================
+
+  // holds shopping site scraped information
+  newsScrapedInfo: NewsResponseJSON = {
+    title: "", 
+    writer: "",
+    date_info: "",
+    subtitle: "",
+    main_text: "",
+    main_text_titles: [""],
+    photo: "",
+  } 
+  //receive shopping ScrapingInformation coming from the child component
+  receiveNewsScrapingEvent(data:NewsResponseJSON){
+    // console.log(data)
+    this.newsScrapedInfo = data;
+  }
+
   
 }
 
@@ -77,4 +95,16 @@ export interface ForumResponseJSON{
   date_info: string,
   forum_category: string
   data: [{answer_owner: string, answer: string}]
+}
+
+
+// Template for the response of the News Site Scraping
+export interface NewsResponseJSON{
+  title: string, 
+  writer: string,
+  date_info: string,
+  subtitle: string,
+  main_text: string,
+  main_text_titles: string[],
+  photo: string,
 }
