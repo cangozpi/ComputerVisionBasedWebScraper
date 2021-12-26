@@ -18,6 +18,19 @@ app.post("/scrape/shoppingSite/scrapeShopping", jsonParser, (req, res) => {
     res.sendFile(path.join(__dirname, './', 'data.json'));
   });
 
+  app.put("/websiteclassifier", jsonParser, (req, res) => {
+    let targetURL = req.body.targetURL
+    let websiteClass = 'shopping-site'
+    if (targetURL.includes("sozcu") || targetURL.includes("hurriyet")){
+      websiteClass = 'news-site'
+    }else if (targetURL.includes("forum") || targetURL.includes("eksi")){
+      websiteClass = 'forum-site'
+    }
+    res.send({
+      "site-type": websiteClass
+    });
+  });
+
 app.listen(8080, () => {
     console.log("Server running on port 8080")
 });
