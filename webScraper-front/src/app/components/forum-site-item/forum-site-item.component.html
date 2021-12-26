@@ -6,10 +6,10 @@
     </ng-container>
   
     
-    <ng-container matColumnDef="main_post">
+    <!-- <ng-container matColumnDef="main_post">
       <th mat-header-cell *matHeaderCellDef> Main Post </th>
       <td mat-cell *matCellDef="let element"> {{element.main_post}} </td>
-    </ng-container>
+    </ng-container> -->
   
     
     <ng-container matColumnDef="post_owner">
@@ -19,7 +19,7 @@
   
     
     <ng-container matColumnDef="date_info">
-      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <th mat-header-cell *matHeaderCellDef> Date </th>
       <td mat-cell *matCellDef="let element"> {{element.date_info}} </td>
     </ng-container>
 
@@ -29,11 +29,11 @@
     </ng-container>
 
     <!-- Comments Column -->
-    <ng-container matColumnDef="answers">
+    <ng-container matColumnDef="details">
         <th mat-header-cell *matHeaderCellDef> Answers </th>
         <td mat-cell *matCellDef="let element"> 
             <button mat-button (click)="openDialog()">
-                Show Answers 
+                Show Details 
                 <mat-icon aria-hidden="false" aria-label="comments">question_answer</mat-icon>
                 <mat-icon aria-hidden="false" aria-label="comments_modal">zoom_in</mat-icon>
             </button>    

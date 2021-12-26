@@ -1,20 +1,41 @@
-<!-- Layout Column Names -->
-<div class="row">
-    <div class="col">
-        <h2>Answer Owner:</h2>
-    </div>
-    <div class="col">
-        <h2>Answer:</h2>
-    </div>
-</div>
+<h2 mat-dialog-title> <b>Forum Details</b></h2>
+<mat-dialog-content class="mat-typography">
 
+    <div class="row">
+        <div class="col"> <h3><b>Main Post:</b></h3> </div>
+    </div>
 
-<!-- Answer entries goes below -->
-<div class="row" *ngFor="let answer of data.answers">
-    <div class="col border-top">
-        <p><b>{{answer.answer_owner}}</b></p>
+    <div class="row">
+        <div class="col">
+            {{data.main_post}}
+        </div>
     </div>
-    <div class="col border-top">
-        <p><em>{{answer.answer}}</em></p>
+
+    <hr>
+    <!-- Layout Column Names -->
+    <div class="row">
+        <div class="col">
+            <h3><b>Answer Owner:</b></h3>
+        </div>
+        <div class="col">
+            <h3> <b>Answer:</b></h3>
+        </div>
     </div>
-</div>
+
+    <hr>
+
+    <!-- Answer entries goes below -->
+    <div class="row" *ngFor="let answer of data.answers">
+        <div class="col border-top">
+            <p><b>{{answer.answer_owner}}</b></p>
+        </div>
+        <div class="col border-top">
+            <p><em>{{answer.answer}}</em></p>
+        </div>
+        <hr>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

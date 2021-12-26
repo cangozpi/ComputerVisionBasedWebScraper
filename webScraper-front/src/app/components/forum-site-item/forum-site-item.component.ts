@@ -1,5 +1,5 @@
 import { TypeofExpr } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { ForumAnswersComponent } from './forum-answers/forum-answers.component';
 
@@ -8,20 +8,65 @@ import { ForumAnswersComponent } from './forum-answers/forum-answers.component';
   templateUrl: './forum-site-item.component.html',
   styleUrls: ['./forum-site-item.component.css']
 })
-export class ForumSiteItemComponent implements OnInit {
+export class ForumSiteItemComponent implements OnInit, OnChanges {
+  // holds shopping site scraped information
+  @Input() forumScrapedInfo: ForumResponseJSON = {
+    main_topic: "",
+    main_post: "",
+    post_owner: "",
+    date_info: "",
+    forum_category: "",
+    data: [{answer_owner: "", answer: ""}]
+  } 
 
-  displayedColumns: string[] = ['main_topic', 'main_post', 'post_owner', 'date_info', 'forum_category', 'answers'];
-  dataSource = product_data;
+  // handle incoming JSON data
+  private forum_data: ForumItem[] = [
+    // {title: "iphone-11Pro max", seller: "Ali Veli", ratings: "4.3", price: "20000$"},
+    {main_topic: this.forumScrapedInfo.main_topic, post_owner: this.forumScrapedInfo.post_owner, date_info: this.forumScrapedInfo.date_info, forum_category: this.forumScrapedInfo.forum_category}
+    
+  ];
+
+  ngOnChanges(changes: SimpleChanges): void {
+    for (const propName in changes) {
+      const chng = changes[propName];
+      const cur  = JSON.stringify(chng.currentValue);
+      const prev = JSON.stringify(chng.previousValue);
+      //console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
+      if(propName == 'forumScrapedInfo'){ //forum scraping information has received/changed
+        // this.dataSource = chng.currentValue;
+        // set table column information
+        this.dataSource = [
+          {main_topic: chng.currentValue.main_topic, post_owner: chng.currentValue.post_owner, date_info: chng.currentValue.date_info, forum_category: chng.currentValue.forum_category},
+        ];
+
+        // set model window information
+        this.modalWindowJSON = {
+          main_post: chng.currentValue.main_post,
+          data: chng.currentValue.data,
+      }
+      // console.log(chng.currentValue)
+      }
+    }
+  }
+
+  // handle incoming scraped information displayed on the modal(dialog) window
+  public modalWindowJSON = {
+    main_post: "",
+    data: [{answer_owner: "", answer: ""}]
+}
+
+  displayedColumns: string[] = ['main_topic', 'post_owner', 'date_info', 'forum_category', 'details'];
+  public dataSource = this.forum_data;
 
   constructor(public dialog: MatDialog) { }
 
   openDialog() {
     const dialogRef = this.dialog.open(ForumAnswersComponent, {
-      data: {answers: AnswersJSON.answers}
+      data: {main_post: this.modalWindowJSON.main_post, answers: this.modalWindowJSON.data}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      // console.log(`Dialog result: ${result}`);
     });
   }
 
@@ -31,8 +76,9 @@ export class ForumSiteItemComponent implements OnInit {
 
 }
 
-// Template for the response of the Forum Site Scraping
-export interface ResponseJSON{
+
+
+export interface ForumResponseJSON{
   main_topic: string,
   main_post: string,
   post_owner: string,
@@ -41,46 +87,9 @@ export interface ResponseJSON{
   data: [{answer_owner: string, answer: string}]
 }
 
-
-let AnswersJSON = {
-  answers:[
-    {
-    'answer_owner': 'AnswerOwner1',
-    'answer': "Cevap1"
-  },
-  {
-    'answer_owner': 'AnswerOwner2',
-    'answer': "Cevap2"
-  },
-  {
-    'answer_owner': 'AnswerOwner3',
-    'answer': "Cevap3"
-  }
-],
-}
-
-
-
-export interface ProductItem {
+export interface ForumItem {
   main_topic: string,
-  main_post: string,
   post_owner: string,
   date_info: string,
   forum_category: string
 }
-
-const product_data: ProductItem[] = [
-  {main_topic: "Robot Operating System", main_post: "ROS nedir, ne işe yarar, kim niye kullanır ?", post_owner: "Ali Veli", date_info: "3 Mart 2021", forum_category:"Mecathronic Engineering"},
-  {main_topic: "Robot Operating System", main_post: "ROS nedir, ne işe yarar, kim niye kullanır ?", post_owner: "Ali Veli", date_info: "3 Mart 2021", forum_category:"Mecathronic Engineering"},
-  {main_topic: "Robot Operating System", main_post: "ROS nedir, ne işe yarar, kim niye kullanır ?", post_owner: "Ali Veli", date_info: "3 Mart 2021", forum_category:"Mecathronic Engineering"},
-  {main_topic: "Robot Operating System", main_post: "ROS nedir, ne işe yarar, kim niye kullanır ?", post_owner: "Ali Veli", date_info: "3 Mart 2021", forum_category:"Mecathronic Engineering"},
-  {main_topic: "Robot Operating System", main_post: "ROS nedir, ne işe yarar, kim niye kullanır ?", post_owner: "Ali Veli", date_info: "3 Mart 2021", forum_category:"Mecathronic Engineering"},
-  {main_topic: "Robot Operating System", main_post: "ROS nedir, ne işe yarar, kim niye kullanır ?", post_owner: "Ali Veli", date_info: "3 Mart 2021", forum_category:"Mecathronic Engineering"},
-  {main_topic: "Robot Operating System", main_post: "ROS nedir, ne işe yarar, kim niye kullanır ?", post_owner: "Ali Veli", date_info: "3 Mart 2021", forum_category:"Mecathronic Engineering"},
-  {main_topic: "Robot Operating System", main_post: "ROS nedir, ne işe yarar, kim niye kullanır ?", post_owner: "Ali Veli", date_info: "3 Mart 2021", forum_category:"Mecathronic Engineering"},
-  {main_topic: "Robot Operating System", main_post: "ROS nedir, ne işe yarar, kim niye kullanır ?", post_owner: "Ali Veli", date_info: "3 Mart 2021", forum_category:"Mecathronic Engineering"},
-  {main_topic: "Robot Operating System", main_post: "ROS nedir, ne işe yarar, kim niye kullanır ?", post_owner: "Ali Veli", date_info: "3 Mart 2021", forum_category:"Mecathronic Engineering"},
-  {main_topic: "Robot Operating System", main_post: "ROS nedir, ne işe yarar, kim niye kullanır ?", post_owner: "Ali Veli", date_info: "3 Mart 2021", forum_category:"Mecathronic Engineering"},
- 
-
-];

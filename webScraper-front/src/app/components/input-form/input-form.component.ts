@@ -9,10 +9,15 @@ import { Output, EventEmitter } from '@angular/core';
   styleUrls: ['./input-form.component.css']
 })
 export class InputFormComponent implements OnInit {
-  @Output() newScrapingEvent = new EventEmitter<ShoppingResponseJSON>();
+  @Output() newShoppingScrapingEvent = new EventEmitter<ShoppingResponseJSON>();
+  @Output() newForumScrapingEvent = new EventEmitter<ForumResponseJSON>();
 
   sendShoppingScrapingEvent(data: ShoppingResponseJSON){
-    this.newScrapingEvent.emit(data);
+    this.newShoppingScrapingEvent.emit(data);
+  }
+
+  sendForumScrapingEvent(data: ForumResponseJSON){
+    this.newForumScrapingEvent.emit(data);
   }
 
   // Form handling
@@ -31,8 +36,10 @@ export class InputFormComponent implements OnInit {
     //make POST request to server for /surveillanceUpload
     let url = "http://localhost:8080/scrape/shoppingSite/scrapeShopping"; //TODO: change localhost 
     this.http.post(url, scrapeRequestTemplate).toPromise().then((data:any) => {
-      //console.log(data)
-      // parse the response body
+      // console.log(data)
+
+      if(scrapeRequestTemplate.websiteType == "shopping-site"){
+        // parse the response body
       let responseJSON: ShoppingResponseJSON = {
         title : data.title,
         seller: data.seller,
@@ -46,14 +53,19 @@ export class InputFormComponent implements OnInit {
         summary: data.summary,
         product_desc: data.product_desc,
       }
-
-      // console.log(ResponseJSON)
-      this.sendShoppingScrapingEvent(responseJSON)
-      if(scrapeRequestTemplate.websiteType == "shopping-site"){
-        
+        this.sendShoppingScrapingEvent(responseJSON)
 
       }else if(scrapeRequestTemplate.websiteType == "forum-site"){
-
+        let responseJSON: ForumResponseJSON = {
+          main_topic: data.main_topic,
+          main_post: data.main_post,
+          post_owner: data.post_owner,
+          date_info: data.date_info,
+          forum_category: data.forum_category,
+          data: data.data
+        }
+        this.sendForumScrapingEvent(responseJSON)
+        // console.log(responseJSON)
       }else if(scrapeRequestTemplate.websiteType == "news-site"){
 
       }
@@ -86,4 +98,14 @@ export interface ShoppingResponseJSON{
   options: string;
   summary: string;
   product_desc: string;
+}
+
+
+export interface ForumResponseJSON{
+  main_topic: string,
+  main_post: string,
+  post_owner: string,
+  date_info: string,
+  forum_category: string
+  data: [{answer_owner: string, answer: string}]
 }

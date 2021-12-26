@@ -53,7 +53,7 @@ export class ShoppingItemComponent implements OnInit, OnChanges {
           summary: chng.currentValue.summary, 
           product_desc:chng.currentValue.product_desc,
       }
-      console.log(chng.currentValue)
+      // console.log(chng.currentValue)
       }
     }
   }
@@ -80,7 +80,7 @@ export class ShoppingItemComponent implements OnInit, OnChanges {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      // console.log(`Dialog result: ${result}`);
     });
   }
 
