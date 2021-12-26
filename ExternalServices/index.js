@@ -18,7 +18,7 @@ app.post("/scrape/shoppingSite/scrapeShopping", jsonParser, (req, res) => {
     res.sendFile(path.join(__dirname, './', 'data.json'));
   });
 
-  app.put("/websiteclassifier", jsonParser, (req, res) => {
+  app.post("/websiteclassifier", jsonParser, (req, res) => {
     let targetURL = req.body.targetURL
     let websiteClass = 'shopping-site'
     if (targetURL.includes("sozcu") || targetURL.includes("hurriyet")){
@@ -27,7 +27,7 @@ app.post("/scrape/shoppingSite/scrapeShopping", jsonParser, (req, res) => {
       websiteClass = 'forum-site'
     }
     res.send({
-      "site-type": websiteClass
+      "site_type": websiteClass
     });
   });
 

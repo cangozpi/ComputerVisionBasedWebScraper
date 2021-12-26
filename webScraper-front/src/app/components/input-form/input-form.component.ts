@@ -38,11 +38,18 @@ export class InputFormComponent implements OnInit {
       targetURL: this.inputForm.value.targetURL,
     }
 
-    //make POST request to server for /surveillanceUpload
+    if(scrapeRequestTemplate.websiteType == 'infer-site'){
+      //make POST request to server 
+      let url = "http://localhost:8080/websiteclassifier"; //TODO: change localhost 
+      this.http.post(url, {targetURL: this.inputForm.value.targetURL}).toPromise().then((data:any) => {
+        console.log(data.site_type)
+      })
+    }else{
+          //make POST request to server 
     let url = "http://localhost:8080/scrape/shoppingSite/scrapeShopping"; //TODO: change localhost 
     this.http.post(url, scrapeRequestTemplate).toPromise().then((data:any) => {
       // console.log(data)
-
+      
       if(scrapeRequestTemplate.websiteType == "shopping-site"){
         // parse the response body
       let responseJSON: ShoppingResponseJSON = {
@@ -82,9 +89,13 @@ export class InputFormComponent implements OnInit {
           photo: data.photo,
         }
         this.sendNewsScrapingEvent(responseJSON)
+
       }
-     
+        
     })
+    }
+
+
 
   }
 
