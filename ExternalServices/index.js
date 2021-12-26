@@ -20,9 +20,9 @@ app.post("/scrape/shoppingSite/scrapeShopping", jsonParser, (req, res) => {
 
   app.post("/websiteclassifier", jsonParser, (req, res) => {
     let targetURL = req.body.targetURL
-    let websiteClass = 'shopping-site'
+    let websiteClass = 'news-site'
     if (targetURL.includes("sozcu") || targetURL.includes("hurriyet")){
-      websiteClass = 'news-site'
+      websiteClass = 'shopping-site'
     }else if (targetURL.includes("forum") || targetURL.includes("eksi")){
       websiteClass = 'forum-site'
     }

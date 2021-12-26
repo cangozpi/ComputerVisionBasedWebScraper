@@ -38,62 +38,67 @@ export class InputFormComponent implements OnInit {
       targetURL: this.inputForm.value.targetURL,
     }
 
+
+
     if(scrapeRequestTemplate.websiteType == 'infer-site'){
       //make POST request to server 
       let url = "http://localhost:8080/websiteclassifier"; //TODO: change localhost 
       this.http.post(url, {targetURL: this.inputForm.value.targetURL}).toPromise().then((data:any) => {
-        console.log(data.site_type)
+        // console.log(data.site_type)
+        scrapeRequestTemplate.websiteType = data.site_type
       })
-    }else{
-          //make POST request to server 
+    }
+
+
+    //make POST request to server 
     let url = "http://localhost:8080/scrape/shoppingSite/scrapeShopping"; //TODO: change localhost 
     this.http.post(url, scrapeRequestTemplate).toPromise().then((data:any) => {
-      // console.log(data)
-      
-      if(scrapeRequestTemplate.websiteType == "shopping-site"){
-        // parse the response body
-      let responseJSON: ShoppingResponseJSON = {
-        title : data.title,
-        seller: data.seller,
-        ratings: data.ratings,
-        price: data.price,
-        reviews: data.reviews,
-        product_info: data.product_info,
-        product_specs: data.product_specs,
-        main_photo: data.main_photo,
-        options: data.options,
-        summary: data.summary,
-        product_desc: data.product_desc,
-      }
-        this.sendShoppingScrapingEvent(responseJSON)
-
-      }else if(scrapeRequestTemplate.websiteType == "forum-site"){
-        let responseJSON: ForumResponseJSON = {
-          main_topic: data.main_topic,
-          main_post: data.main_post,
-          post_owner: data.post_owner,
-          date_info: data.date_info,
-          forum_category: data.forum_category,
-          data: data.data
-        }
-        this.sendForumScrapingEvent(responseJSON)
-        // console.log(responseJSON)
-      }else if(scrapeRequestTemplate.websiteType == "news-site"){
-        let responseJSON: NewsResponseJSON = {
-          title: data.title, 
-          writer: data.writer,
-          date_info: data.date_info,
-          subtitle: data.subtitle,
-          main_text: data.main_text,
-          main_text_titles: data.main_text_titles,
-          photo: data.photo,
-        }
-        this.sendNewsScrapingEvent(responseJSON)
-
-      }
-        
-    })
+    // console.log(data)
+    
+    if(scrapeRequestTemplate.websiteType == "shopping-site"){
+      // parse the response body
+    let responseJSON: ShoppingResponseJSON = {
+      title : data.title,
+      seller: data.seller,
+      ratings: data.ratings,
+      price: data.price,
+      reviews: data.reviews,
+      product_info: data.product_info,
+      product_specs: data.product_specs,
+      main_photo: data.main_photo,
+      options: data.options,
+      summary: data.summary,
+      product_desc: data.product_desc,
     }
+      this.sendShoppingScrapingEvent(responseJSON)
+
+    }else if(scrapeRequestTemplate.websiteType == "forum-site"){
+      let responseJSON: ForumResponseJSON = {
+        main_topic: data.main_topic,
+        main_post: data.main_post,
+        post_owner: data.post_owner,
+        date_info: data.date_info,
+        forum_category: data.forum_category,
+        data: data.data
+      }
+      this.sendForumScrapingEvent(responseJSON)
+      // console.log(responseJSON)
+    }else if(scrapeRequestTemplate.websiteType == "news-site"){
+      let responseJSON: NewsResponseJSON = {
+        title: data.title, 
+        writer: data.writer,
+        date_info: data.date_info,
+        subtitle: data.subtitle,
+        main_text: data.main_text,
+        main_text_titles: data.main_text_titles,
+        photo: data.photo,
+      }
+      this.sendNewsScrapingEvent(responseJSON)
+
+    }
+      
+  })
+    
 
 
 
