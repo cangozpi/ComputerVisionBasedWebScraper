@@ -6,6 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  // ======== hide/display tables ========
+  forumTableActive = false
+  shoppingTableActive = false
+  newsTableActive = false
+
+
 
   // ================ Shopping =================
 
@@ -66,6 +72,12 @@ export class AppComponent {
     this.newsScrapedInfo = data;
   }
 
+  receiveTableStatus(tableStatus: TableStatus){
+    this.forumTableActive = tableStatus.forumTableActive
+    this.shoppingTableActive = tableStatus.shoppingTableActive
+    this.newsTableActive = tableStatus.newsTableActive
+  }
+
   
 }
 
@@ -107,4 +119,11 @@ export interface NewsResponseJSON{
   main_text: string,
   main_text_titles: string[],
   photo: string,
+}
+
+
+export interface TableStatus{
+  forumTableActive: boolean,
+  shoppingTableActive: boolean,
+  newsTableActive: boolean,
 }

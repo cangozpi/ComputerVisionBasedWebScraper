@@ -7,12 +7,13 @@
       </div>
     </div>    
   </div>
-  <div class="row h-100 justify-content-center">
+  <div class="row justify-content-center">
     <div class="col-md-8 col-sm-10 align-self-center">
       <app-input-form 
       (newShoppingScrapingEvent) = "receiveShoppingScrapingEvent($event)"
       (newForumScrapingEvent) = "receiveForumScrapingEvent($event)"
       (newNewsScrapingEvent) = "receiveNewsScrapingEvent($event)"
+      (updateTableStatus) = "receiveTableStatus($event)"
       ></app-input-form>
     </div>
     <div class="col-md-4 col-sm-11 mt-sm-3 justify-content-center align-self-center">
@@ -23,28 +24,28 @@
 
 
   <!-- forumSiteItem Component-->
-  <div class="row justify-content-center mt-2">
+  <div *ngIf="forumTableActive" class="row justify-content-center mt-2">
     <div class="col"> <h2 style="text-align: center;">Forum Site Scraped Information</h2></div>
     <div class="w-100"></div>
-    <div class="col-md-8">
+    <div class="col-md-8 justify-content-center d-flex">
       <app-forum-site-item [forumScrapedInfo]="forumScrapedInfo"></app-forum-site-item>
     </div>
   </div>
 
   <!-- shoppingItem-component-->
-  <div class="row justify-content-center mt-2">
+  <div *ngIf="shoppingTableActive" class="row justify-content-center mt-2">
     <div class="col"> <h2 style="text-align: center;">Shopping Site Scraped Information</h2></div>
     <div class="w-100"></div>
-    <div class="col-md-8">
+    <div class="col-md-8 justify-content-center d-flex">
       <app-shopping-item [shoppingScrapedInfo]="shoppingScrapedInfo"></app-shopping-item>
     </div>
   </div>
 
     <!-- newsSite-item-component-->
-    <div class="row justify-content-center mt-2">
+    <div *ngIf="newsTableActive" class="row justify-content-center mt-2">
       <div class="col"> <h2 style="text-align: center;">News Site Scraped Information</h2></div>
       <div class="w-100"></div>
-      <div class="col-md-8">
+      <div class="col-md-8 justify-content-center d-flex">
         <app-news-site-item  [newsScrapedInfo]="newsScrapedInfo"></app-news-site-item>
       </div>
     </div>

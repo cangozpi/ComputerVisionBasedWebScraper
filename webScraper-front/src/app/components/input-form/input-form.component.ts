@@ -12,6 +12,13 @@ export class InputFormComponent implements OnInit {
   @Output() newShoppingScrapingEvent = new EventEmitter<ShoppingResponseJSON>();
   @Output() newForumScrapingEvent = new EventEmitter<ForumResponseJSON>();
   @Output() newNewsScrapingEvent = new EventEmitter<NewsResponseJSON>();
+  @Output() updateTableStatus = new EventEmitter<TableStatus>();
+
+  private tableStatus: TableStatus = {
+    forumTableActive: false,
+    shoppingTableActive: false,
+    newsTableActive: false,
+  }
 
   sendShoppingScrapingEvent(data: ShoppingResponseJSON){
     this.newShoppingScrapingEvent.emit(data);
@@ -23,6 +30,10 @@ export class InputFormComponent implements OnInit {
 
   sendNewsScrapingEvent(data: NewsResponseJSON){
     this.newNewsScrapingEvent.emit(data);
+  }
+
+  tableStatusChanged(data: TableStatus){
+    this.updateTableStatus.emit(data);
   }
 
   // Form handling
@@ -71,6 +82,10 @@ export class InputFormComponent implements OnInit {
       product_desc: data.product_desc,
     }
       this.sendShoppingScrapingEvent(responseJSON)
+      // hide/show tables
+      this.tableStatus.forumTableActive = false
+      this.tableStatus.shoppingTableActive = true
+      this.tableStatus.newsTableActive = false
 
     }else if(scrapeRequestTemplate.websiteType == "forum-site"){
       let responseJSON: ForumResponseJSON = {
@@ -82,7 +97,11 @@ export class InputFormComponent implements OnInit {
         data: data.data
       }
       this.sendForumScrapingEvent(responseJSON)
-      // console.log(responseJSON)
+      // hide/show tables
+      this.tableStatus.forumTableActive = true
+      this.tableStatus.shoppingTableActive = false
+      this.tableStatus.newsTableActive = false
+
     }else if(scrapeRequestTemplate.websiteType == "news-site"){
       let responseJSON: NewsResponseJSON = {
         title: data.title, 
@@ -95,7 +114,14 @@ export class InputFormComponent implements OnInit {
       }
       this.sendNewsScrapingEvent(responseJSON)
 
+      // hide/show tables
+      this.tableStatus.forumTableActive = false
+      this.tableStatus.shoppingTableActive = false
+      this.tableStatus.newsTableActive = true
     }
+
+    // update table status
+    this.tableStatusChanged(this.tableStatus)
       
   })
     
@@ -150,4 +176,11 @@ export interface NewsResponseJSON{
   main_text: string,
   main_text_titles: string[],
   photo: string,
+}
+
+
+export interface TableStatus{
+  forumTableActive: boolean,
+  shoppingTableActive: boolean,
+  newsTableActive: boolean,
 }
