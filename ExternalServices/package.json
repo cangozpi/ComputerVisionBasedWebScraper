@@ -12,6 +12,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "fs-extra": "^10.0.0",
-    "python": "^0.0.4"
+    "node-tesseract-ocr": "^2.2.1",
+    "python": "^0.0.4",
+    "sharp": "^0.29.3"
   }
 }

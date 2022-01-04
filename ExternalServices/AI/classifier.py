@@ -37,12 +37,12 @@ def predict_image(image):
     index = output.data.cpu().numpy().argmax()
     return index
         
-model = torch.load("classifier_full.pt",map_location=torch.device('cpu'))
+model = torch.load("./AI/classifier_full.pt",map_location=torch.device('cpu'))
 
 cwd = os.getcwd()
 
 
-path = "yolov5/data/images/screenshot.jpeg"
+path = "./DataScraper/screenshot.jpeg"
 
 image = Image.open(path, mode='r')
 
@@ -53,10 +53,10 @@ filepath = cwd + "/classifier_output.txt"
 f = io.open(filepath,mode="w",encoding="utf-8")
 
 if cls_pred == 0:
-    pred = "forum"
+    pred = 'forum-site'
 elif cls_pred == 1:
-    pred = "news"
+    pred = 'news-site'
 else:
-    pred = "shopping"
+    pred = 'shopping-site'
 
 f.write(pred)

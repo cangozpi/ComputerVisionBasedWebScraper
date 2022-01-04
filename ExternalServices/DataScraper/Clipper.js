@@ -55,14 +55,14 @@ async function iterateDetections(imagePath, arr, siteTypeNum) {
         let scaleWidth = temporary[3]
         let scaleHeight = temporary[4]
         let confidenceScore = temporary[5]
-        if ((classLabel == 4) || (classLabel == 8) || (classLabel == 12)){
+        if ((siteType == 0 && ((classLabel == 4) || (classLabel == 8) || (classLabel == 12))) || (siteType == 2 && ((classLabel == 8) || (classLabel == 9)))){
             cropImage(image, imageHeight, imageWidth,  `${savedImagesPath}/${Labels[siteTypeNum][classLabel]} - ${classLabelList[classLabel]}.jpeg`, distanceLeft- scaleWidth/2, distanceTop - scaleHeight/2, scaleWidth, scaleHeight);
         } else {
             let scores = []
             for (t = 0,k = arr.length; t < k; t += 6) {
                 temporary_scores = arr.slice(t, t + 6);
                 if (temporary_scores[0] == classLabel){
-                    scores.append(temporary_scores[5])
+                    scores.push(temporary_scores[5])
                 }
             }
             if (confidenceScore == Math.max.apply(Math, scores)){

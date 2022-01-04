@@ -25,10 +25,12 @@ try {
 execSync(`node  ./Screenshot/ScreenShot.js "${siteUrl}"`,{stdio: 'inherit'});
 
 //Python yolov5 Script
-execSync(`py ./AI/yolov5/detect.py --weights ./AI/${siteType}.pt --img 1251 --conf 0.25 --source ./DataScraper/screenshot.jpeg --save-txt --save-conf --nosave `);
+execSync(`python ./AI/yolov5/detect.py --weights ./AI/${siteType}.pt --img 1251 --conf 0.25 --source ./DataScraper/screenshot.jpeg --save-txt --save-conf --nosave `);
 
 //Clipper
 execSync(`node ./DataScraper/Clipper.js ${siteType}`,{stdio: 'inherit'});
 
 //OCR
 execSync(`node ./OCR/dataExtraction.js`,{stdio: 'inherit'});
+
+execSync(`node ./dataExport.js ${siteType}`,{stdio: 'inherit'});

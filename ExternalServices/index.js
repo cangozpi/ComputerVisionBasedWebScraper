@@ -1,5 +1,6 @@
 const express = require("express");
 const execSync = require('child_process').execSync;
+var fs = require('fs')
 const path = require('path');
 var cors = require('cors')
 var bodyParser = require('body-parser');
@@ -14,20 +15,26 @@ app.post("/scrape/shoppingSite/scrapeShopping", jsonParser, (req, res) => {
     let websiteType = req.body.websiteType
     let targetURL = req.body.targetURL
     console.log(req.body)
-    //execSync(`node  ./Service.js "${targetURL}" ${websiteType}`,{stdio: 'inherit'});
+    execSync(`node  ./Service.js "${targetURL}" ${websiteType}`,{stdio: 'inherit'});
     res.sendFile(path.join(__dirname, './', 'data.json'));
   });
 
   app.post("/websiteclassifier", jsonParser, (req, res) => {
     let targetURL = req.body.targetURL
-    let websiteClass = 'news-site'
-    if (targetURL.includes("sozcu") || targetURL.includes("hurriyet")){
-      websiteClass = 'shopping-site'
-    }else if (targetURL.includes("forum") || targetURL.includes("eksi")){
-      websiteClass = 'forum-site'
-    }
-    res.send({
-      "site_type": websiteClass
+    
+    console.log(`inferring the site type of the url: ${targetURL}`)
+
+    execSync(`node  ./Screenshot/ScreenShot.js "${targetURL}"`,{stdio: 'inherit'});
+
+    execSync(`python  ./AI/classifier.py`,{stdio: 'inherit'});
+
+    const filename = './classifier_output.txt'
+    fs.readFile(filename, 'utf8', function(err, data) {
+      if (err) throw err;
+      console.log(data)
+      res.send({
+        "site_type": data
+      });
     });
   });
 
