@@ -24,3 +24,14 @@ Run "python Sentiment_Analysis.py"
 The output will be saved to ExternalServices/OCR/merged_text.txt with the following format
 
 negative_sentiment_count neutral_sentiment_count positive_sentiment_count
+
+Website ClassifierZ:
+
+Go to the ExternalServices/AI directory
+
+Put the images that are going to be predicted to yolov5/data/images.
+
+Run "python classifier.py"
+
+The output will be saved to ExternalServices/AI/classifier_output.txt
+The output will either be "forum", "news" or "shoppig"
