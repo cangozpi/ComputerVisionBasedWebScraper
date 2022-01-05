@@ -34,25 +34,20 @@ Shopping Sites:
     photo : other photos of the product
     selected_photo : small icon of the selected photo
     main_photo : big image of the product
-    cookie_popup : the entire cookie popup
-    cookie_accept : accept button of the cookie popup incase navigation is needed
-    cookie_close : close button of the cookie popup incase navigation is needed
     options : different options for the product 
-    summary . product summary
+    summary : product summary
     product_desc : extended description of the product if available
     
 News Sites:
     title : title of the news article
-    writer : writer of the news article
+    search_box : search box
+    photo : photos in the articles
     date_info : date and time info of when the article was released
+    writer : writer of the news article
     subtitle : subtitle
     main_text : main paragraphs of the article
     main_text_titles : titles betweeen the paragraphs
-    photo : photos in the articles
-    cookie_popup : the entire cookie popup
-    cookie_accept : accept button of the cookie popup incase navigation is needed
-    cookie_close : close button of the cookie popup incase navigation is needed
-
+       
 Forum Sites:
     main_topic : title of the post
     main_post : the main post excluding title
@@ -61,8 +56,3 @@ Forum Sites:
     answer : answer to the post
     answer_owner : writer of the answer
     forum_category : which category the post was posted
-    cookie_popup : the entire cookie popup
-    cookie_accept : accept button of the cookie popup incase navigation is needed
-    cookie_close : close button of the cookie popup incase navigation is needed
-
-
